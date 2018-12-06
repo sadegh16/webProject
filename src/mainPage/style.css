@@ -1,0 +1,99 @@
+.fade-appear {
+  opacity: 0;
+  z-index: 1;
+}
+.fade-appear.fade-appear-active {
+  opacity: 1;
+  transition: opacity 1000ms linear;
+}
+
+.fade-enter {
+  opacity: 0;
+  z-index: 1;
+}
+.fade-enter.fade-enter-active {
+  opacity: 1;
+  transition: opacity 5000ms linear 5000ms;
+}
+
+.fade-exit {
+  opacity: 1;
+}
+.fade-exit.fade-exit-active {
+  opacity: 0;
+  transition: opacity 5000ms linear;
+}
+.fade-exit-done {
+  opacity: 0;
+}
+
+.slide-enter {
+  opacity: 0;
+  transform: scale(0.97) translateY(5px);
+  z-index: 1;
+}
+.slide-enter.slide-enter-active {
+  opacity: 1;
+  transform: scale(1) translateY(0);
+  transition: all 3000ms linear;
+}
+
+.slide-enter {
+  opacity: 0;
+  transform: scale(0.97) translateY(5px);
+  z-index: 1;
+}
+.slide-enter.slide-enter-active {
+  opacity: 1;
+  transform: scale(1) translateY(0);
+  transition: opacity 1000ms linear 1000ms, transform 1000ms ease-in-out 1000ms;
+}
+
+.slide-exit {
+  display: none;
+  opacity: 0;
+  transform: scale(1) translateY(0);
+}
+
+.move-enter {
+  opacity: 0.01;
+  transform: translate(-100px, 0);
+}
+
+.move-enter-active {
+  opacity: 1;
+  transform: translate(0, 0);
+  transition: all 500ms ease-in;
+}
+
+.move-exit {
+  display: none;
+  opacity: 0;
+  transform: translate(0, 0);
+}
+
+News {
+  margin: auto;
+}
+body {
+  margin: 0, 20px;
+  padding: 0 0 100px 0;
+  font-family: sans-serif;
+  overflow: hidden;
+}
+LastNew {
+  width: 100px;
+  height: 100px;
+}
+.newsRow {
+  /* direction: rtl; */
+  justify-content: space-between;
+  display: flex;
+  background-color: darkcyan;
+  margin: 16px;
+}
+
+.navbar {
+  font-weight: bold;
+  background-color: crimson;
+}
