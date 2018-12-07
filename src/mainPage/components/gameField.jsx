@@ -3,35 +3,36 @@ import LastNew from "./lastNew";
 import Favorite from "./favorite";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
 import "../style.css";
-class NewsField extends Component {
+class GameField extends Component {
   state = {
     field: this.props.field,
     favorites: [
-      { id: 1, team: "favorTeam1", teamNew: "won" },
-      { id: 2, team: "favorTeam2", teamNew: "loose" },
-      { id: 3, team: "favorTeam3", teamNew: "loose" },
-      { id: 4, team: "favorTeam4", teamNew: "loose" }
+      { id: 1, team: "favorGame1", teamNew: "won" },
+      { id: 2, team: "favorGame2", teamNew: "loose" },
+      { id: 3, team: "favorGame3", teamNew: "not played" },
+      { id: 4, team: "favorGame4", teamNew: "win" }
     ],
     favorCount: 0,
-    lastNews: [
-      { id: 1, title: "basket1", subtitle: "iran won" },
-      { id: 2, title: "basket2", subtitle: "iran loose" },
-      { id: 3, title: "basket3", subtitle: "iran loose" },
-      { id: 4, title: "basket4", subtitle: "iran loose" }
+    todayGames: [
+      { id: 1, title: "soccer1", subtitle: "won" },
+      { id: 2, title: "basket2", subtitle: "loose" },
+      { id: 3, title: "soccer3", subtitle: "win" },
+      { id: 4, title: "basket4", subtitle: "loose" }
     ],
-    lastCount: 0
+    gameCount: 0
   };
 
   componentDidMount() {
     var intervalId = setInterval(() => {
       this.setState({
-        lastCount: (this.state.lastCount + 1) % this.state.lastNews.length,
+        lastCount: (this.state.gameCount + 1) % this.state.todayGames.length,
         favorCount: (this.state.favorCount + 1) % this.state.favorites.length
       });
-    }, 5500);
+    }, 4400);
 
     this.setState({ intervalId: intervalId });
   }
+  news;
 
   componentWillUnmount() {
     clearInterval(this.state.intervalId);
@@ -39,25 +40,25 @@ class NewsField extends Component {
 
   render() {
     return (
-      <div className="newsRow">
+      <div className="gamesRow">
         <h2>{this.state.field}</h2>
         <TransitionGroup>
           <CSSTransition
-            key={this.state.lastNews[this.state.lastCount].id}
+            key={this.state.todayGames[this.state.gameCount].id}
             timeout={4500}
             classNames="move"
           >
             <LastNew
-              key={this.state.lastCount}
-              title={this.state.lastNews[this.state.lastCount].title}
-              subtitle={this.state.lastNews[this.state.lastCount].subtitle}
+              key={this.state.gameCount}
+              title={this.state.todayGames[this.state.gameCount].title}
+              subtitle={this.state.todayGames[this.state.gameCount].subtitle}
             />
           </CSSTransition>
         </TransitionGroup>
         <TransitionGroup>
           <CSSTransition
             key={this.state.favorites[this.state.favorCount].id}
-            timeout={3000}
+            timeout={6000}
             classNames="slide"
           >
             <Favorite
@@ -71,4 +72,4 @@ class NewsField extends Component {
   }
 }
 
-export default NewsField;
+export default GameField;
