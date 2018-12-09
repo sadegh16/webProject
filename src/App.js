@@ -3,68 +3,46 @@ import logo from "./logo.svg";
 import "./App.css";
 import TeamPage from "./components/teamPage/components/teamMainPage.jsx";
 import MainPage from "./components/mainPage/components/mainPage.jsx";
+import {Menu,Input}  from "semantic-ui-react";
+import 'semantic-ui-css/semantic.min.css';
+
 class App extends Component {
-
-
+  handleItemClick = (e, { name }) => this.setState({ activeItem: name })
   state = { 
-    currentPage:<TeamPage/>
+    currentPage:<TeamPage/>,
+    activeItem: 'home'
    }
 
   changePage=(pageTag)=>{
     this.setState({currentPage:pageTag})
+
   }
   render() {
+    const { activeItem } = this.state
     return (
-
       <div className="App">
-      <nav className="navbar navbar-expand-md navbar-dark bg-dark">
-          <a className="navbar-brand" href="#">
-            Sport
-          </a>
-          <button
-            className="navbar-toggler"
-            type="button"
-            data-toggle="collapse"
-            data-target="#navbarsExample04"
-            aria-controls="navbarsExample04"
-            aria-expanded="false"
-            aria-label="Toggle navigation"
-          >
-            <span className="navbar-toggler-icon" />
-          </button>
+      
+      <Menu pointing secondary>
+          <Menu.Item name='home' active={activeItem === 'home'} onClick={this.handleItemClick} />
+          <Menu.Item
+            name='messages'
+            active={activeItem === 'messages'}
+            onClick={this.handleItemClick}
+          />
+          <Menu.Item
+            name='friends'
+            active={activeItem === 'friends'}
+            onClick={this.handleItemClick}
+          />
+          <Menu.Menu position='right'>
+            <Menu.Item
+              name='logout'
+              active={activeItem === 'logout'}
+              onClick={this.handleItemClick}
+            />
+          </Menu.Menu>
+        </Menu>
 
-          <div className="collapse navbar-collapse">
-            <ul className="navbar-nav mr-auto">
-              <li className="nav-item active">
-                <a className="nav-link" href="#">
-                  Home <span className="sr-only">(current)</span>
-                </a>
-              </li>
-
-              <li className="nav-item dropdown">
-                <a
-                  className="nav-link dropdown-toggle"
-                  data-toggle="dropdown"
-                  aria-haspopup="true"
-                  aria-expanded="true"
-                >
-                  actions
-                </a>
-                <div className="dropdown-menu" aria-labelledby="dropdown04">
-                  <a className="dropdown-item" href="#">
-                    Action
-                  </a>
-                  <a className="dropdown-item" href="#">
-                    Another action
-                  </a>
-                  <a className="dropdown-item" href="#">
-                    Something else here
-                  </a>
-                </div>
-              </li>
-            </ul>
-          </div>
-        </nav>
       {this.state.currentPage}
       </div>
     );
