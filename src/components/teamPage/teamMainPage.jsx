@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import Member from "./member";
-import { Grid, Menu, Table } from "semantic-ui-react";
+import { Grid, Menu } from "semantic-ui-react";
 import GameRow from "./gameResult";
 import LastNew from "../mainPage/lastNew.jsx";
 import { CSSTransition, TransitionGroup } from "react-transition-group";

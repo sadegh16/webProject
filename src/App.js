@@ -3,13 +3,14 @@ import logo from "./logo.svg";
 import "./App.css";
 import TeamPage from "./components/teamPage/teamMainPage.jsx";
 import MainPage from "./components/mainPage/mainPage.jsx";
+import PlayerPage from "./components/playerPage/playerMainPage.jsx";
 import { Menu, Dropdown, Button } from "semantic-ui-react";
 import "semantic-ui-css/semantic.min.css";
 
 class App extends Component {
   handleItemClick = (e, { name }) => this.setState({ activeItem: name });
   state = {
-    currentPage: <TeamPage />,
+    currentPage: <PlayerPage />,
     activeItem: "home"
   };
 
