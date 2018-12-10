@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import logo from "./logo.svg";
 import "./App.css";
-import TeamPage from "./components/teamPage/components/teamMainPage.jsx";
-import MainPage from "./components/mainPage/components/mainPage.jsx";
+import TeamPage from "./components/teamPage/teamMainPage.jsx";
+import MainPage from "./components/mainPage/mainPage.jsx";
 import { Menu, Dropdown, Button } from "semantic-ui-react";
 import "semantic-ui-css/semantic.min.css";
 
@@ -16,6 +16,7 @@ class App extends Component {
   changePage = pageTag => {
     this.setState({ currentPage: pageTag });
   };
+  //
   render() {
     const { activeItem } = this.state;
     return (

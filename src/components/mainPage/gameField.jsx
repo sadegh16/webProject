@@ -2,7 +2,8 @@ import React, { Component } from "react";
 import LastNew from "./lastNew";
 import Favorite from "./favorite";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
-import "../style.css";
+import "views/style.css";
+//
 class GameField extends Component {
   state = {
     field: this.props.field,

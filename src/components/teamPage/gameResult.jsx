@@ -9,12 +9,14 @@ class GameRow extends Component {
   };
   render() {
     return (
-      <Table.Row>
-        <Table.Cell>{this.state.team}</Table.Cell>
-        <Table.Cell>{this.state.result}</Table.Cell>
-        <Table.Cell>{this.state.time}</Table.Cell>
-        <Table.Cell>{this.state.score}</Table.Cell>
-      </Table.Row>
+      <tr>
+        <td scope="row" data-label="team">
+          {this.state.team}
+        </td>
+        <td data-label="result">{this.state.result}</td>
+        <td data-label="time">{this.state.time}</td>
+        <td data-label="score">{this.state.score}</td>
+      </tr>
     );
   }
 }

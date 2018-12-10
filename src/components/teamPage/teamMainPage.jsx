@@ -2,7 +2,9 @@ import React, { Component } from "react";
 import Member from "./member";
 import { Grid, Menu, Table } from "semantic-ui-react";
 import GameRow from "./gameResult";
-//
+import LastNew from "../mainPage/lastNew.jsx";
+import { CSSTransition, TransitionGroup } from "react-transition-group";
+import "views/style.css";
 class TeamPage extends Component {
   state = {
     gameResults: [
@@ -18,8 +20,29 @@ class TeamPage extends Component {
         time: "2/2/4",
         score: "2"
       }
-    ]
+    ],
+    lastNews: [
+      { id: 1, title: "basket1", subtitle: "iran won" },
+      { id: 2, title: "basket2", subtitle: "iran loose" },
+      { id: 3, title: "basket3", subtitle: "iran loose" },
+      { id: 4, title: "basket4", subtitle: "iran loose" }
+    ],
+    lastCount: 0
   };
+  componentDidMount() {
+    var intervalId = setInterval(() => {
+      this.setState({
+        lastCount: (this.state.lastCount + 1) % this.state.lastNews.length
+      });
+    }, 5500);
+
+    this.setState({ intervalId: intervalId });
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.state.intervalId);
+  }
+
   handleItemClick = (e, { name }) => this.setState({ activeItem: name });
   render() {
     const { activeItem } = this.state;
@@ -68,17 +91,17 @@ class TeamPage extends Component {
                   onClick={this.handleItemClick}
                 />
               </Menu>
-              <Table size="large">
-                <Table.Header>
-                  <Table.Row>
-                    <Table.HeaderCell>team</Table.HeaderCell>
-                    <Table.HeaderCell>result</Table.HeaderCell>
-                    <Table.HeaderCell>time</Table.HeaderCell>
-                    <Table.HeaderCell>score</Table.HeaderCell>
-                  </Table.Row>
-                </Table.Header>
-
-                <Table.Body>
+              <table>
+                <caption>Statement Summary</caption>
+                <thead>
+                  <tr>
+                    <th scope="col">Team</th>
+                    <th scope="col">Result</th>
+                    <th scope="col">time</th>
+                    <th scope="col">score</th>
+                  </tr>
+                </thead>
+                <tbody>
                   {this.state.gameResults.map(a => (
                     <GameRow
                       team={a.team}
@@ -87,8 +110,24 @@ class TeamPage extends Component {
                       score={a.score}
                     />
                   ))}
-                </Table.Body>
-              </Table>
+                </tbody>
+              </table>
+
+              <TransitionGroup>
+                <CSSTransition
+                  key={this.state.lastNews[this.state.lastCount].id}
+                  timeout={4500}
+                  classNames="slide"
+                >
+                  <LastNew
+                    key={this.state.lastCount}
+                    title={this.state.lastNews[this.state.lastCount].title}
+                    subtitle={
+                      this.state.lastNews[this.state.lastCount].subtitle
+                    }
+                  />
+                </CSSTransition>
+              </TransitionGroup>
             </Grid.Column>
           </Grid.Row>
         </Grid>

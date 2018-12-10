@@ -1,0 +1,179 @@
+.memPic {
+  height: 100%;
+  width: 100%;
+}
+.person-details {
+  text-align: left;
+}
+
+menu {
+  margin: 16px;
+}
+
+table {
+  border: 1px solid #ccc;
+  border-collapse: collapse;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  table-layout: fixed;
+}
+
+table caption {
+  font-size: 1.5em;
+  margin: 0.5em 0 0.75em;
+}
+
+table tr {
+  background-color: #f8f8f8;
+  border: 1px solid #ddd;
+  padding: 0.35em;
+}
+
+table th,
+table td {
+  padding: 0.625em;
+  text-align: center;
+}
+
+table th {
+  font-size: 0.85em;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+@media screen and (max-width: 600px) {
+  table {
+    border: 0;
+  }
+
+  table caption {
+    font-size: 1.3em;
+  }
+
+  table thead {
+    border: none;
+    clip: rect(0 0 0 0);
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+    width: 1px;
+  }
+
+  table tr {
+    border-bottom: 3px solid #ddd;
+    display: block;
+    margin-bottom: 0.625em;
+  }
+
+  table td {
+    border-bottom: 1px solid #ddd;
+    display: block;
+    font-size: 0.8em;
+    text-align: right;
+  }
+
+  table td::before {
+    /*
+        * aria-label has no advantage, it won't be read inside a table
+        content: attr(aria-label);
+        */
+    content: attr(data-label);
+    float: left;
+    font-weight: bold;
+    text-transform: uppercase;
+  }
+
+  table td:last-child {
+    border-bottom: 0;
+  }
+}
+
+.fade-appear {
+  opacity: 0;
+  z-index: 1;
+}
+.fade-appear.fade-appear-active {
+  opacity: 1;
+  transition: opacity 1000ms linear;
+}
+
+.fade-enter {
+  opacity: 0;
+  z-index: 1;
+}
+.fade-enter.fade-enter-active {
+  opacity: 1;
+  transition: opacity 5000ms linear 5000ms;
+}
+
+.fade-exit {
+  opacity: 1;
+}
+.fade-exit.fade-exit-active {
+  opacity: 0;
+  transition: opacity 5000ms linear;
+}
+.fade-exit-done {
+  opacity: 0;
+}
+
+.slide-enter {
+  opacity: 0;
+  transform: scale(0.97) translateY(5px);
+  z-index: 1;
+}
+.slide-enter.slide-enter-active {
+  opacity: 1;
+  transform: scale(1) translateY(0);
+  transition: all 1000ms linear;
+}
+
+.slide-exit {
+  display: none;
+  opacity: 0;
+  transform: scale(1) translateY(0);
+}
+
+.move-enter {
+  opacity: 0.01;
+  transform: translate(-100px, 0);
+}
+
+.move-enter-active {
+  opacity: 1;
+  transform: translate(0, 0);
+  transition: all 500ms ease-in;
+}
+
+.move-exit {
+  display: none;
+  opacity: 0;
+  transform: translate(0, 0);
+}
+
+News,
+Games {
+  margin: auto;
+}
+body {
+  margin: 0, 20px;
+  font-family: sans-serif;
+}
+.newsRow,
+.gamesRow {
+  /* direction: rtl; */
+  justify-content: space-between;
+  display: flex;
+  background-color: darkcyan;
+  margin: 16px;
+}
+.gamesRow {
+  background-color: coral;
+}
+.navbar {
+  font-weight: bold;
+  background-color: crimson;
+}

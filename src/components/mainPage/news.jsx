@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import NewsField from "./newsField";
-import "../style.css";
+import "views/style.css";
+//
 class News extends Component {
   render() {
     return (
