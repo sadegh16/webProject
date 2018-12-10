@@ -1,7 +1,11 @@
-.memPic{    
-    height: 100%;
-    width: 100%; 
+.memPic {
+  height: 100%;
+  width: 100%;
 }
-.person-details{
-    text-align: left;
+.person-details {
+  text-align: left;
+}
+
+menu {
+  margin: 16px;
 }
