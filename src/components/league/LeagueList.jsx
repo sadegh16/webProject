@@ -5,6 +5,7 @@ export default class LeagueList extends Component {
   handleItemClick = (e, { name }) => {
     this.setState({ activeItem: name });
   };
+  leagueHandler = (e, { name });
   sportFields = ["basketball", "football"];
   showFields = { basketball: ["1b", "2b", "3b"], football: ["1f", "2f", "3f"] };
 
@@ -22,7 +23,10 @@ export default class LeagueList extends Component {
             />
           ))}
         </Menu>
-        <List items={this.showFields[this.state.activeItem]} />
+        <List
+          items={this.showFields[this.state.activeItem]}
+          onClick={this.leagueHandler}
+        />
       </div>
     );
   }

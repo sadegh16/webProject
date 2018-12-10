@@ -97,11 +97,11 @@ export default class NormalLeague extends Component {
           </Table.Row>
         </Table.Header>
         <Table.Body>
-          {_.map(data, ({ age, gender, name }) => (
-            <Table.Row key={name}>
-              <Table.Cell>{name}</Table.Cell>
-              <Table.Cell>{age}</Table.Cell>
-              <Table.Cell>{gender}</Table.Cell>
+          {_.map(data, a => (
+            <Table.Row>
+              {Object.values(a).map(b => (
+                <Table.Cell>{b}</Table.Cell>
+              ))}
             </Table.Row>
           ))}
         </Table.Body>
