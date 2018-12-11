@@ -7,7 +7,9 @@ class CommentManager extends Component {
     comments: [
       { name: "rez", time: "today", text: "sallllllam" },
       { name: "rez2", time: "today1", text: "sallllllam" }
-    ]
+    ],
+
+    textComment: ""
   };
   ////
   onSubmit = (e, { value }) => {
@@ -15,19 +17,25 @@ class CommentManager extends Component {
     comments.push({
       name: "sadegh",
       time: "today",
-      text: value
+      text: this.state.textComment
     });
     this.setState({ comments });
   };
 
+  onchange = (e, { value }) => {
+    this.state.textComment = value;
+  };
   render() {
     return (
-      <Comment.Group size={16} co>
+      <Comment.Group size={16}>
         {this.state.comments.map(a => (
           <ResComment name={a.name} time={a.time} text={a.text} leaf={false} />
         ))}
         <Form size={14} onSubmit={this.onSubmit}>
-          <Form.TextArea />
+          <Form.TextArea
+            onChange={this.onchange}
+            placeholder="Enter your comment"
+          />
           <Button
             content="Add Comment"
             labelPosition="left"

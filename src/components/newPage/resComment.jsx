@@ -10,7 +10,7 @@ class ResComment extends Component {
       { name: "ali", time: "today", text: "sallllllllllam ohlekaaaaaaaaaat" }
     ]
   };
-
+  //
   render() {
     return (
       <Comment>

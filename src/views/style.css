@@ -192,3 +192,13 @@ form {
 p {
   text-align: left;
 }
+containter {
+  display: flex;
+  margin: 50px;
+}
+.footer {
+  width: 100%;
+  margin: 0;
+  border: #505050;
+  background-color: brown;
+}
