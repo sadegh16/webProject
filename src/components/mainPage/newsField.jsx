@@ -40,33 +40,35 @@ class NewsField extends Component {
 
   render() {
     return (
-      <div className="newsRow">
+      <div className="field">
         <h2>{this.state.field}</h2>
-        <TransitionGroup>
-          <CSSTransition
-            key={this.state.lastNews[this.state.lastCount].id}
-            timeout={4500}
-            classNames="move"
-          >
-            <LastNew
-              key={this.state.lastCount}
-              title={this.state.lastNews[this.state.lastCount].title}
-              subtitle={this.state.lastNews[this.state.lastCount].subtitle}
-            />
-          </CSSTransition>
-        </TransitionGroup>
-        <TransitionGroup>
-          <CSSTransition
-            key={this.state.favorites[this.state.favorCount].id}
-            timeout={3000}
-            classNames="slide"
-          >
-            <Favorite
-              team={this.state.favorites[this.state.favorCount].team}
-              teamNew={this.state.favorites[this.state.favorCount].teamNew}
-            />
-          </CSSTransition>
-        </TransitionGroup>
+        <div className="newsRow">
+          <TransitionGroup>
+            <CSSTransition
+              key={this.state.lastNews[this.state.lastCount].id}
+              timeout={4500}
+              classNames="move"
+            >
+              <LastNew
+                key={this.state.lastCount}
+                title={this.state.lastNews[this.state.lastCount].title}
+                subtitle={this.state.lastNews[this.state.lastCount].subtitle}
+              />
+            </CSSTransition>
+          </TransitionGroup>
+          <TransitionGroup>
+            <CSSTransition
+              key={this.state.favorites[this.state.favorCount].id}
+              timeout={3000}
+              classNames="slide"
+            >
+              <Favorite
+                team={this.state.favorites[this.state.favorCount].team}
+                teamNew={this.state.favorites[this.state.favorCount].teamNew}
+              />
+            </CSSTransition>
+          </TransitionGroup>
+        </div>
       </div>
     );
   }

@@ -12,7 +12,7 @@ import "semantic-ui-css/semantic.min.css";
 class App extends Component {
   handleItemClick = (e, { name }) => this.setState({ activeItem: name });
   state = {
-    currentPage: <MainNewPage />,
+    currentPage: <MainPage />,
     activeItem: "home"
   };
 

@@ -158,9 +158,11 @@ News,
 Games {
   margin: auto;
 }
+.App {
+  background-color: #999494;
+}
 body {
   margin: 0, 20px;
-
   font-size: 122px;
   color: #505050;
   font-family: "Poppins", sans-serif;
@@ -173,10 +175,10 @@ body {
   /* direction: rtl; */
   justify-content: space-between;
   display: flex;
-  background-color: darkcyan;
+  flex-wrap: wrap;
   margin: 16px;
 }
-.gamesRow {
+.gamefield {
   background-color: coral;
 }
 .navbar {
@@ -200,5 +202,10 @@ containter {
   width: 100%;
   margin: 0;
   border: #505050;
-  background-color: brown;
+  background-color: darkcyan;
+  padding: 10px;
+}
+
+.field {
+  background-color: darkcyan;
 }
