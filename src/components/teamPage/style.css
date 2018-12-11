@@ -89,4 +89,8 @@ table th {
   table td:last-child {
     border-bottom: 0;
   }
+
+  Comment.Group {
+    text-align: left;
+  }
 }

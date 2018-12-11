@@ -4,13 +4,15 @@ import "./App.css";
 import TeamPage from "./components/teamPage/teamMainPage.jsx";
 import MainPage from "./components/mainPage/mainPage.jsx";
 import PlayerPage from "./components/playerPage/playerMainPage.jsx";
+import SignUp from "./components/signUp/signUpPage.jsx";
+import MainNewPage from "./components/newPage/mainNewPage.jsx";
 import { Menu, Dropdown, Button } from "semantic-ui-react";
 import "semantic-ui-css/semantic.min.css";
 
 class App extends Component {
   handleItemClick = (e, { name }) => this.setState({ activeItem: name });
   state = {
-    currentPage: <PlayerPage />,
+    currentPage: <MainNewPage />,
     activeItem: "home"
   };
 
@@ -45,6 +47,9 @@ class App extends Component {
 
             <Menu.Item>
               <Button primary>Sign Up</Button>
+            </Menu.Item>
+            <Menu.Item>
+              <Button primary>Sign In</Button>
             </Menu.Item>
           </Menu.Menu>
         </Menu>
