@@ -46,6 +46,7 @@ export default class SortedTable extends Component {
                 sorted={column === a ? direction : null}
                 onClick={this.handleSort(a)}
               >
+                //
                 {a}
               </Table.HeaderCell>
             ))}

@@ -5,20 +5,38 @@ import GameRow from "./gameResult";
 import LastNew from "../mainPage/lastNew.jsx";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
 import "views/style.css";
+import _ from "lodash";
+
 class TeamPage extends Component {
   state = {
     gameResults: [
       {
         team: "T1",
-        result: "1:2",
+        result: "1:2:L",
         time: "1/2/4",
-        score: "4"
+        score: 4,
+        status: -1
       },
       {
         team: "T2",
-        result: "2:2",
+        result: "2:2:E",
         time: "2/2/4",
-        score: "2"
+        score: 2,
+        status: 0
+      },
+      {
+        team: "T3",
+        result: "2:2:E",
+        time: "6/2/4",
+        score: 9,
+        status: 0
+      },
+      {
+        team: "T4",
+        result: "3:2:W",
+        time: "5/2/4",
+        score: 6,
+        status: 1
       }
     ],
     lastNews: [
@@ -27,7 +45,9 @@ class TeamPage extends Component {
       { id: 3, title: "basket3", subtitle: "iran loose" },
       { id: 4, title: "basket4", subtitle: "iran loose" }
     ],
-    lastCount: 0
+    lastCount: 0,
+    column: null,
+    direction: "descending"
   };
   componentDidMount() {
     var intervalId = setInterval(() => {
@@ -43,94 +63,114 @@ class TeamPage extends Component {
     clearInterval(this.state.intervalId);
   }
 
-  handleItemClick = (e, { name }) => this.setState({ activeItem: name });
+  handleItemClick = (e, { name }) => {
+    var { column, gameResults } = this.state;
+    var tmpName = name;
+    if (name === "win" || name === "loose") tmpName = "status";
+
+    if (column !== name) {
+      this.setState({
+        column: name,
+        gameResults:
+          name !== "loose"
+            ? _.sortBy(gameResults, [tmpName]).reverse()
+            : _.sortBy(gameResults, [tmpName]),
+        activeItem: name
+      });
+    }
+    console.log(tmpName, this.state.gameResults);
+  };
   render() {
-    const { activeItem } = this.state;
+    const { activeItem, gameResults } = this.state;
     return (
       <div>
         <img src={require("./team.jpg")} style={{ width: "100%" }} />
         <br />
         <br />
-        <br />
-        <Grid columns={2} stackable centered>
-          <Grid.Row>
-            <Grid.Column width={10}>
-              <div className="container">
-                <div className="row">
-                  <Member />
-                  <Member />
-                  <Member />
-                  <Member />
-                  <Member />
-                  <Member />
+        <div className="teamContainer">
+          <Grid columns={2} stackable centered>
+            <Grid.Row>
+              <Grid.Column width={10}>
+                <div className="container">
+                  <div className="row">
+                    <Member />
+                    <Member />
+                    <Member />
+                    <Member />
+                    <Member />
+                    <Member />
+                  </div>
                 </div>
-              </div>
-            </Grid.Column>
+              </Grid.Column>
 
-            <Grid.Column width={6}>
-              <Menu inverted>
-                <Menu.Item header>Past Games Sort By</Menu.Item>
-                <Menu.Item
-                  name="win"
-                  activeactive={activeItem === "closest"}
-                  onClick={this.handleItemClick}
-                />
-                <Menu.Item
-                  name="loose"
-                  activeactive={activeItem === "closest"}
-                  onClick={this.handleItemClick}
-                />
-                <Menu.Item
-                  name="score"
-                  activeactive={activeItem === "mostComments"}
-                  onClick={this.handleItemClick}
-                />
-                <Menu.Item
-                  name="time"
-                  activeactive={activeItem === "mostPopular"}
-                  onClick={this.handleItemClick}
-                />
-              </Menu>
-              <table>
-                <caption>Statement Summary</caption>
-                <thead>
-                  <tr>
-                    <th scope="col">Team</th>
-                    <th scope="col">Result</th>
-                    <th scope="col">time</th>
-                    <th scope="col">score</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {this.state.gameResults.map(a => (
-                    <GameRow
-                      team={a.team}
-                      result={a.result}
-                      time={a.time}
-                      score={a.score}
-                    />
-                  ))}
-                </tbody>
-              </table>
-
-              <TransitionGroup>
-                <CSSTransition
-                  key={this.state.lastNews[this.state.lastCount].id}
-                  timeout={4500}
-                  classNames="slide"
-                >
-                  <LastNew
-                    key={this.state.lastCount}
-                    title={this.state.lastNews[this.state.lastCount].title}
-                    subtitle={
-                      this.state.lastNews[this.state.lastCount].subtitle
-                    }
+              <Grid.Column width={6}>
+                <Menu inverted stackable fluid>
+                  <Menu.Item header>Sort By</Menu.Item>
+                </Menu>
+                <Menu compact stackable fluid>
+                  <Menu.Item
+                    name="win"
+                    active={activeItem === "win"}
+                    onClick={this.handleItemClick}
                   />
-                </CSSTransition>
-              </TransitionGroup>
-            </Grid.Column>
-          </Grid.Row>
-        </Grid>
+                  <Menu.Item
+                    name="loose"
+                    active={activeItem === "loose"}
+                    onClick={this.handleItemClick}
+                  />
+                  <Menu.Item
+                    name="score"
+                    active={activeItem === "score"}
+                    onClick={this.handleItemClick}
+                  />
+                  <Menu.Item
+                    name="time"
+                    active={activeItem === "time"}
+                    onClick={this.handleItemClick}
+                  />
+                </Menu>
+                <table>
+                  <caption>Statement Summary</caption>
+                  <thead>
+                    <tr>
+                      <th scope="col">Team</th>
+                      <th scope="col">Result</th>
+                      <th scope="col">time</th>
+                      <th scope="col">score</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {gameResults.map(a => (
+                      <GameRow
+                        key={a.team}
+                        team={a.team}
+                        result={a.result}
+                        time={a.time}
+                        score={a.score}
+                      />
+                    ))}
+                  </tbody>
+                </table>
+
+                <TransitionGroup>
+                  <CSSTransition
+                    key={this.state.lastNews[this.state.lastCount].id}
+                    timeout={4500}
+                    classNames="slide"
+                  >
+                    <LastNew
+                      key={this.state.lastCount}
+                      title={this.state.lastNews[this.state.lastCount].title}
+                      subtitle={
+                        this.state.lastNews[this.state.lastCount].subtitle
+                      }
+                    />
+                  </CSSTransition>
+                </TransitionGroup>
+              </Grid.Column>
+            </Grid.Row>
+          </Grid>
+        </div>
       </div>
     );
   }

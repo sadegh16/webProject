@@ -8,11 +8,22 @@ import SignUp from "./components/signUp/signUpPage.jsx";
 import MainNewPage from "./components/newPage/mainNewPage.jsx";
 import { Menu, Dropdown, Container, Button } from "semantic-ui-react";
 import "semantic-ui-css/semantic.min.css";
-
+const routing = (
+  <Router>
+    <div>
+      <Route exact path="/mainPage" component={MainPage} />
+      <Route path="/signUp" component={SignUp} />
+      <Route path="/teamPage" component={TeamPage} />
+      <Route path="/playerPage" component={PlayerPage} />
+      <Route path="/newPage" component={MainNewPage} />
+      <Route path="/league" component={League} />
+    </div>
+  </Router>
+);
 class App extends Component {
   handleItemClick = (e, { name }) => this.setState({ activeItem: name });
   state = {
-    currentPage: <MainPage />,
+    currentPage: <TeamPage />,
     activeItem: "home"
   };
 
@@ -54,58 +65,47 @@ class App extends Component {
           </Menu.Menu>
         </Menu>
         {this.state.currentPage}
-        <div className="footer">
-          <div className="row">
-            <div className="col-md-3">
-              <h4 className="footer-title">about us</h4>
-              <div className="about-widget">
-                <p>
-                  We create Premium Html Themes for more than three years. Our
-                  team goal is to reunite the elegance of unique.
-                </p>
-                <p className="margin-remove">
-                  We create Unique and Easy To Use Flexible Html Themes.
-                </p>
-              </div>
+        <footer class="footer-distributed">
+          <div class="footer-left">
+            <h3>
+              Sharif Sport<span>logo</span>
+            </h3>
+
+            <p class="footer-links">
+              <a href="#">Home</a>·<a href="#">Blog</a>lkafkaldk
+              <a href="#">Pricing</a>·<a href="#">About</a>·<a href="#">Faq</a>
+              alkflakmfcma<a href="#">Contact</a>
+            </p>
+          </div>
+
+          <div class="footer-center">
+            <div>
+              <i class="fa fa-map-marker" />
+              <p>
+                <span>Our address is here</span> Iran Tehran
+              </p>
             </div>
-            <div className="col-md-3">
-              <h4 className="footer-title">about us</h4>
-              <div className="about-widget">
-                <p>
-                  We create Premium Html Themes for more than three years. Our
-                  team goal is to reunite the elegance of unique.
-                </p>
-                <p className="margin-remove">
-                  We create Unique and Easy To Use Flexible Html Themes.
-                </p>
-              </div>
+
+            <div>
+              <i class="fa fa-phone" />
+              <p>+1897983244</p>
             </div>
-            <div className="col-md-3">
-              <h4 className="footer-title">about us</h4>
-              <div className="about-widget">
-                <p>
-                  We create Premium Html Themes for more than three years. Our
-                  team goal is to reunite the elegance of unique.
-                </p>
-                <p className="margin-remove">
-                  We create Unique and Easy To Use Flexible Html Themes.
-                </p>
-              </div>
-            </div>
-            <div className="col-md-3">
-              <h4 className="footer-title">about us</h4>
-              <div className="about-widget">
-                <p>
-                  We create Premium Html Themes for more than three years. Our
-                  team goal is to reunite the elegance of unique.
-                </p>
-                <p className="margin-remove">
-                  We create Unique and Easy To Use Flexible Html Themes.
-                </p>
-              </div>
+
+            <div>
+              <i class="fa fa-envelope" />
+              <p>
+                <a href="mailto:sharif@web.programing">sharif@web.programing</a>
+              </p>
             </div>
           </div>
-        </div>
+
+          <div class="footer-right">
+            <p class="footer-company-about">
+              <span>About us</span>
+              sport is very goood :)) do sport handsom:)))
+            </p>
+          </div>
+        </footer>
       </div>
     );
   }
