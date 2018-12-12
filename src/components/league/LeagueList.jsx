@@ -1,21 +1,21 @@
 import React, { Component } from "react";
 import { Menu, List } from "semantic-ui-react";
 export default class LeagueList extends Component {
-  state = {};
+  state = {
+    notif: this.props.notif,
+    sportFields: Object.keys(this.props.sports),
+    sports: this.props.sports,
+    activeItem: "football"
+  };
   handleItemClick = (e, { name }) => {
     this.setState({ activeItem: name });
   };
-  leagueHandler = (e, { name });
-  sportFields = ["basketball", "football"];
-  showFields = { basketball: ["1b", "2b", "3b"], football: ["1f", "2f", "3f"] };
-
   render() {
     const { activeItem } = this.state;
-    const { showLeague } = this.state;
     return (
       <div>
         <Menu>
-          {this.sportFields.map(s => (
+          {this.state.sportFields.map(s => (
             <Menu.Item
               name={s}
               active={activeItem === s}
@@ -23,10 +23,16 @@ export default class LeagueList extends Component {
             />
           ))}
         </Menu>
-        <List
-          items={this.showFields[this.state.activeItem]}
-          onClick={this.leagueHandler}
-        />
+        <List>
+          {Object.keys(this.state.sports[activeItem]).map(a => (
+            <List.Item
+              name={a}
+              onClick={(e, { name }) => this.state.notif(name)}
+            >
+              {a}
+            </List.Item>
+          ))}
+        </List>
       </div>
     );
   }
