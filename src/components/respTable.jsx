@@ -5,6 +5,7 @@ class RespTable extends Component {
     data: this.props.data,
     header: this.props.header
   };
+  //
   render() {
     return (
       <table>

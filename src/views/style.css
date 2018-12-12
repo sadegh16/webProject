@@ -362,9 +362,6 @@ img {
   margin-right: 3px;
   margin-bottom: 5px;
 }
-
-/* If you don't want the footer to be responsive, remove these media queries */
-
 @media (max-width: 880px) {
   .footer-distributed {
     font: bold 14px sans-serif;
@@ -382,4 +379,63 @@ img {
   .footer-distributed .footer-center i {
     margin-left: 0;
   }
+}
+body {
+  font-size: 15px;
+}
+.line {
+  position: absolute;
+  top: 15px;
+  width: 5px;
+  min-height: 100%;
+  background: #e7262b;
+  margin: 0 0 0 24px;
+  -webkit-box-shadow: 2px 2px 7px 0px rgba(0, 0, 0, 0.3);
+  box-shadow: 2px 2px 7px 0px rgba(0, 0, 0, 0.3);
+}
+
+.qualifications {
+  position: relative;
+}
+
+.tile-outer {
+  display: flex;
+  margin: 20px 0 0 20px;
+}
+.tile {
+  position: relative;
+  z-index: 10;
+  background: #e7262b;
+  color: white;
+  padding: 10px 15px;
+  margin: 0 0 0 30px;
+  box-shadow: 2px 2px 7px 0px rgba(0, 0, 0, 0.3);
+  display: flex;
+}
+
+.tile p {
+  margin: 0;
+  font-weight: 200;
+}
+
+.tile:before {
+  content: "";
+  width: 30px;
+  height: 30px;
+  background: #e7262b;
+  display: block;
+  position: absolute;
+  top: 6px;
+  left: -15px;
+  z-index: -1;
+  transform: rotate(45deg);
+}
+
+.tile-outer i.fa {
+  margin: 13px 0 0 0;
+  position: relative;
+  color: #e7262b;
+}
+#timeLineTime {
+  margin: 10px;
 }

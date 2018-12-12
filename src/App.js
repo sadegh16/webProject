@@ -4,9 +4,11 @@ import "./App.css";
 import TeamPage from "./components/teamPage/teamMainPage.jsx";
 import MainPage from "./components/mainPage/mainPage.jsx";
 import PlayerPage from "./components/playerPage/playerMainPage.jsx";
-import SignUp from "./components/signUp/signUpPage.jsx";
+import SignUp from "./components/signIn/signInPage.jsx";
 import MainNewPage from "./components/newPage/mainNewPage.jsx";
+import League from "./components/league/league.jsx";
 import { Menu, Dropdown, Container, Button } from "semantic-ui-react";
+import { Route, Link, BrowserRouter as Router } from "react-router-dom";
 import "semantic-ui-css/semantic.min.css";
 const routing = (
   <Router>

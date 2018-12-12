@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import { Button, Divider, Form, Grid, Segment } from "semantic-ui-react";
+import { Link } from "react-router-dom";
 
-class SignUp extends Component {
+class SignIn extends Component {
   state = {};
   render() {
     return (
@@ -31,4 +32,4 @@ class SignUp extends Component {
   }
 }
 
-export default SignUp;
+export default SignIn;

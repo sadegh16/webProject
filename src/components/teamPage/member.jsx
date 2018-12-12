@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import "views/style.css";
-
+import { Link } from "react-router-dom";
 class Member extends Component {
   state = {
     // born:this.props.Born,
@@ -21,7 +21,9 @@ class Member extends Component {
           <div className="person-details">
             <div className="overly-bg" />
             <a href="">
-              <h5 className="person-name">Masud Rana</h5>
+              <Link to="/playerPage">
+                <h5 className="person-name">Masud Rana</h5>
+              </Link>
             </a>
             <table className="person-info">
               <tbody>
