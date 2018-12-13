@@ -9,7 +9,6 @@ class EventLine extends Component {
     return (
       <div class="tile-outer">
         <i class="fa" id="timeLineTime">
-          {" "}
           {this.state.time}
         </i>
         <div class="tile">

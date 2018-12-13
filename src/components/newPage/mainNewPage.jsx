@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Grid, Segment, Image, Container, GridColumn } from "semantic-ui-react";
+import { Grid, Segment, Image, Button, GridColumn } from "semantic-ui-react";
 import CommentManager from "./commentManager.jsx";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
 import "views/style.css";
@@ -50,7 +50,19 @@ class MainNewPage extends Component {
           <Grid.Column width={12}>
             <Segment>
               <Image src={require("./1.jpg")} />
+
               <br />
+              <Button
+                color="red"
+                content="Like"
+                icon="heart"
+                label={{
+                  basic: true,
+                  color: "red",
+                  pointing: "left",
+                  content: "2,048"
+                }}
+              />
               <br />
               {this.state.pm}
               <br />
@@ -87,7 +99,7 @@ class MainNewPage extends Component {
                 />
               </CSSTransition>
             </TransitionGroup>
-          </Grid.Column>{" "}
+          </Grid.Column>
         </Grid>
       </containter>
     );

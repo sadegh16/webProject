@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import Member from "./member";
-import { Grid, Menu } from "semantic-ui-react";
+import { Grid, Menu, Button } from "semantic-ui-react";
 import GameRow from "./gameResult";
 import LastNew from "../mainPage/lastNew.jsx";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
@@ -104,28 +104,50 @@ class TeamPage extends Component {
               </Grid.Column>
 
               <Grid.Column width={6}>
+                <img src={require("./logo.jpg")} style={{ width: "100%" }} />
+                <br />
+                <br />
+                <Button
+                  fluid
+                  circular
+                  color="red"
+                  content="Like"
+                  icon="heart"
+                  label={{
+                    basic: true,
+                    color: "red",
+                    pointing: "left",
+                    content: "2,048"
+                  }}
+                />{" "}
                 <Menu inverted stackable fluid>
                   <Menu.Item header>Sort By</Menu.Item>
+
+                  <Menu.Item> </Menu.Item>
                 </Menu>
                 <Menu compact stackable fluid>
                   <Menu.Item
                     name="win"
                     active={activeItem === "win"}
                     onClick={this.handleItemClick}
+                    color="red"
                   />
                   <Menu.Item
                     name="loose"
                     active={activeItem === "loose"}
                     onClick={this.handleItemClick}
+                    color="red"
                   />
                   <Menu.Item
-                    name="score"
-                    active={activeItem === "score"}
+                    color="red"
+                    name="time"
+                    active={activeItem === "time"}
                     onClick={this.handleItemClick}
                   />
                   <Menu.Item
-                    name="time"
-                    active={activeItem === "time"}
+                    color="red"
+                    name="score"
+                    active={activeItem === "score"}
                     onClick={this.handleItemClick}
                   />
                 </Menu>
@@ -151,7 +173,6 @@ class TeamPage extends Component {
                     ))}
                   </tbody>
                 </table>
-
                 <TransitionGroup>
                   <CSSTransition
                     key={this.state.lastNews[this.state.lastCount].id}

@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 // import { browserHistory } from "react-router";
-import { Menu, Dropdown, Container, Button } from "semantic-ui-react";
+import { Menu, Dropdown, Button } from "semantic-ui-react";
 import { Link } from "react-router-dom";
 import "semantic-ui-css/semantic.min.css";
 class MainNavBar extends Component {
@@ -35,7 +35,9 @@ class MainNavBar extends Component {
           <Dropdown item text="More">
             <Dropdown.Menu>
               <Dropdown.Item>Porofile</Dropdown.Item>
-              <Dropdown.Item>About us</Dropdown.Item>
+              {/* < href="/messagePage"> */}
+              <Dropdown.Item>messages</Dropdown.Item>
+              {/* </link> */}
               <Dropdown.Item>Location</Dropdown.Item>
             </Dropdown.Menu>
           </Dropdown>

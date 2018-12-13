@@ -7,7 +7,7 @@ import { Grid, Segment, Container } from "semantic-ui-react";
 class BasketGame extends Component {
     state = { 
         statistic=[]
-
+        
      }
     render() { 
         return ( 

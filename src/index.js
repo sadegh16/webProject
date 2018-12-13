@@ -16,8 +16,10 @@ import PlayerPage from "./components/playerPage/playerMainPage.jsx";
 import SignIn from "./components/signIn/signInPage.jsx";
 import MainNewPage from "./components/newPage/mainNewPage.jsx";
 import GameMainPage from "./components/gamePage/gameMainPage.jsx";
+import MessagePage from "./components/profileMessage/messagePage.jsx";
 
 import { Route, Link, BrowserRouter as Router } from "react-router-dom";
+import SignUpPage from "./components/signUp/signUpPage";
 const routing = (
   <Router>
     <div>
@@ -28,6 +30,8 @@ const routing = (
       <Route path="/newPage" component={MainNewPage} />
       <Route path="/league" component={League} />
       <Route path="/gamePage" component={GameMainPage} />
+      <Route path="/messagePage" component={MessagePage} />
+      <Route path="/signUp" component={SignUpPage} />
     </div>
   </Router>
 );

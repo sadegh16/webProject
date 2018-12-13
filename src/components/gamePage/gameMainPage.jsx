@@ -35,7 +35,6 @@ class GameMainPage extends Component {
             </Segment>
           </Grid.Column>
           <Grid.Column width={10} />
-          
         </Grid>
       </Container>
     );
