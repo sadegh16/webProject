@@ -79,7 +79,6 @@ export default class SearchStandard extends Component {
 
   render() {
     const { isLoading, value, results } = this.state;
-    console.log(results);
     return (
       <Grid>
         <Grid.Column width={6}>

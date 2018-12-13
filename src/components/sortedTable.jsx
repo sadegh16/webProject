@@ -3,6 +3,7 @@ import React, { Component } from "react";
 import { Table } from "semantic-ui-react";
 export default class SortedTable extends Component {
   handleUpdate = function() {
+    console.log("hi im there");
     this.setState({
       data: this.props.data,
       header: Object.keys(this.props.data[0])

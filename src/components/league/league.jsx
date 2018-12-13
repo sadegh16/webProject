@@ -6,6 +6,96 @@ import faker from "faker";
 
 import { Grid, Search } from "semantic-ui-react";
 import SearchStandard from "../search";
+const games = {
+  b2: [
+    {
+      teamA: "b1",
+      teamB: "b1_2",
+      type: "league",
+      field: "basketcup",
+      result: "1:2",
+      team1score: 5,
+      team2score: 5
+    },
+    {
+      teamA: "b2",
+      teamB: "b2_2",
+      type: "cup",
+      field: "basketcup",
+      result: "1:2",
+      team1score: 5,
+      team2score: 5
+    },
+    {
+      teamA: "b3",
+      teamB: "b3_2",
+      type: "league",
+      field: "basketcup",
+      result: "1:2",
+      team1score: 5,
+      team2score: 5
+    }
+  ],
+  b1: [
+    {
+      teamA: "ol,b1",
+      teamB: "b1_,l.2",
+      type: "leaguel,;",
+      field: "basketball",
+      result: "1:2",
+      team1score: 5,
+      team2score: 5
+    },
+    {
+      teamA: "b2",
+      teamB: "b2_2",
+      type: "cup",
+      field: "basketball",
+      result: "1:2",
+      team1score: 5,
+      team2score: 5
+    },
+    {
+      teamA: "b3",
+      teamB: "b3_2",
+      type: "league",
+      field: "basketball",
+      result: "1:2",
+      team1score: 5,
+      team2score: 5
+    }
+  ],
+  f1: [
+    {
+      teamA: "f1",
+      teamB: "f1_2",
+      type: "league",
+      field: "football",
+      result: "1:2",
+      team1score: 5,
+      team2score: 5
+    },
+    {
+      teamA: "f2",
+      teamB: "f2_2",
+      type: "cup",
+      field: "football",
+      result: "1:2",
+      team1score: 5,
+      team2score: 5
+    },
+    {
+      teamA: "f3",
+      teamB: "f3_2",
+      type: "league",
+      field: "football",
+      result: "1:2",
+      team1score: 5,
+      team2score: 5
+    }
+  ]
+};
+
 const dataH = {
   b2: {
     array: [1, 2, 3, 4, 5, 6, 7, 8, 2, 3, 5, 7, 3, 5, 5],
@@ -60,6 +150,7 @@ class League extends Component {
       this.state.callbackCup();
     }
   };
+  gameCallbackSetter = func => (this.state.callbackGame = func);
   compSetCallbackCup = function(func) {
     this.state.callbackCup = func;
   };
@@ -70,6 +161,7 @@ class League extends Component {
     type: "cup",
     competitionID: "b2",
     data: dataH,
+    gameCallbackSetter: this.gameCallbackSetter.bind(this),
     changeNotif: this.changeNotif.bind(this),
     compSetCallbackLeague: this.compSetCallbackLeague.bind(this),
     compSetCallbackCup: this.compSetCallbackCup.bind(this)
@@ -94,6 +186,11 @@ class League extends Component {
                 data={this.state.data[this.state.competitionID]}
               />
             )}
+            <SortedTable
+              {...console.log(games[this.state.competitionID])}
+              data={games[this.state.competitionID]}
+              passFunc={this.state.gameCallbackSetter}
+            />
           </Grid.Column>
         </Grid>
       </div>

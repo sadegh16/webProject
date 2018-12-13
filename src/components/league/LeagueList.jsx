@@ -1,13 +1,10 @@
 import React, { Component } from "react";
 import {
   Menu,
-  Input,
   Button,
-  List,
   Grid,
   Label,
   GridRow,
-  ButtonGroup,
   Segment
 } from "semantic-ui-react";
 import SearchStandard from "../search";

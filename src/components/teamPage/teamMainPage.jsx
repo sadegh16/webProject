@@ -78,7 +78,6 @@ class TeamPage extends Component {
         activeItem: name
       });
     }
-    console.log(tmpName, this.state.gameResults);
   };
   render() {
     const { activeItem, gameResults } = this.state;
