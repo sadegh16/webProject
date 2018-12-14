@@ -3,9 +3,12 @@ import EventLine from "./eventLine";
 import "views/style.css";
 import RespTable from "../respTable";
 import { Grid, Segment, Container } from "semantic-ui-react";
+import FootBallGame from "./footballGame";
+import BasketGame from "./basketGame";
 
 class GameMainPage extends Component {
   state = {
+    field: "basketball",
     events: [
       ["start Game"],
       ["Event1 happend"],
@@ -34,7 +37,13 @@ class GameMainPage extends Component {
               </div>
             </Segment>
           </Grid.Column>
-          <Grid.Column width={10} />
+          <Grid.Column width={10}>
+            {this.state.field === "basketball" ? (
+              <FootBallGame>'s'</FootBallGame>
+            ) : (
+              <BasketGame>'d'</BasketGame>
+            )}
+          </Grid.Column>
         </Grid>
       </Container>
     );

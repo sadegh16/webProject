@@ -38,7 +38,7 @@ export default class SortedTable extends Component {
   render() {
     var { column, data, direction, header } = this.state;
     return (
-      <Table sortable celled fixed>
+      <Table sortable celled fixed selectable color="orange">
         <Table.Header>
           <Table.Row>
             {header.map(a => (
@@ -46,7 +46,6 @@ export default class SortedTable extends Component {
                 sorted={column === a ? direction : null}
                 onClick={this.handleSort(a)}
               >
-                //
                 {a}
               </Table.HeaderCell>
             ))}

@@ -2,18 +2,22 @@ import React, { Component } from "react";
 import LeagueList from "./LeagueList";
 import SortedTable from "../sortedTable";
 import CupComp from "./CupComp";
+import faker from "faker";
+
+import { Grid, Search } from "semantic-ui-react";
+import SearchStandard from "../search";
 const dataH = {
   b2: {
     array: [1, 2, 3, 4, 5, 6, 7, 8, 2, 3, 5, 7, 3, 5, 5],
     title: "Cup",
     inf: [
-      { from: 0, to: 4 },
-      { from: 8, to: 10 },
-      { from: 12, to: 13 },
-      { from: 15, to: 15 },
-      { from: 13, to: 14 },
-      { from: 10, to: 12 },
-      { from: 4, to: 8 }
+      { from: 0, to: 4, title: "1/8" },
+      { from: 8, to: 10, title: "1/4" },
+      { from: 12, to: 13, title: "1/2" },
+      { from: 14, to: 15, title: "Winner" },
+      { from: 13, to: 14, title: "1/2" },
+      { from: 10, to: 12, title: "1/4" },
+      { from: 4, to: 8, title: "1/8" }
     ]
   },
   b1: [
@@ -39,21 +43,17 @@ const dataH = {
     { Team: "w9", games: 2, Win: 1, Equal: 1, Lost: 1, Score: 2 }
   ]
 };
-const sports = {
-  basketball: {
-    b1: { current: true, type: "league" },
-    b2: { current: true, type: "Cup" },
-    b3: { current: true, type: "league" }
-  },
-  football: {
-    f1: { current: true, type: "league" },
-    f2: { current: true, type: "league" },
-    f3: { current: true, type: "league" }
-  }
-};
+const sports = [
+  { name: "b1", current: true, type: "league", field: "basketball" },
+  { name: "b2", current: false, type: "cup", field: "basketball" },
+  { name: "b3", current: true, type: "league", field: "basketball" },
+  { name: "f1", current: true, type: "league", field: "football" },
+  { name: "f2", current: false, type: "cup", field: "football" },
+  { name: "f3", current: false, type: "league", field: "football" }
+];
 class League extends Component {
-  changeNotif = function(cmp) {
-    this.setState({ competitionID: cmp });
+  changeNotif = function(cmp, tp) {
+    this.setState({ competitionID: cmp, type: tp });
     if (this.state.type === "league") {
       this.state.callbackLeague();
     } else {
@@ -67,8 +67,8 @@ class League extends Component {
     this.state.callbackLeague = func;
   };
   state = {
-    type: "league",
-    competitionID: "b1",
+    type: "cup",
+    competitionID: "b2",
     data: dataH,
     changeNotif: this.changeNotif.bind(this),
     compSetCallbackLeague: this.compSetCallbackLeague.bind(this),
@@ -77,19 +77,25 @@ class League extends Component {
 
   render() {
     return (
-      <div>
-        <LeagueList sports={sports} notif={this.state.changeNotif} />
-        {this.state.type === "league" ? (
-          <SortedTable
-            passFunc={this.state.compSetCallbackLeague}
-            data={this.state.data[this.state.competitionID]}
-          />
-        ) : (
-          <CupComp
-            passFunc={this.state.compSetCallbackCup}
-            data={this.state.data[this.state.competitionID]}
-          />
-        )}
+      <div style={{ backgroundColor: "#b8c3d6" }}>
+        <Grid columns={2} stackable centered>
+          <Grid.Row stretched width={10}>
+            <LeagueList sports={sports} notif={this.state.changeNotif} />
+          </Grid.Row>
+          <Grid.Column stretched width={10}>
+            {this.state.type === "league" ? (
+              <SortedTable
+                passFunc={this.state.compSetCallbackLeague}
+                data={this.state.data[this.state.competitionID]}
+              />
+            ) : (
+              <CupComp
+                passFunc={this.state.compSetCallbackCup}
+                data={this.state.data[this.state.competitionID]}
+              />
+            )}
+          </Grid.Column>
+        </Grid>
       </div>
     );
   }
