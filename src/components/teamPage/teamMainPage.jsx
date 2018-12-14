@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import Member from "./member";
-import { Grid, Menu, Button } from "semantic-ui-react";
+import { Grid, Menu, Button, Segment } from "semantic-ui-react";
 import GameRow from "./gameResult";
 import LastNew from "../mainPage/lastNew.jsx";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
@@ -91,103 +91,107 @@ class TeamPage extends Component {
           <Grid columns={2} stackable centered>
             <Grid.Row>
               <Grid.Column width={10}>
-                <div className="container">
-                  <div className="row">
-                    <Member />
-                    <Member />
-                    <Member />
-                    <Member />
-                    <Member />
-                    <Member />
+                <Segment color="red" secondary>
+                  <div className="container">
+                    <div className="row">
+                      <Member />
+                      <Member />
+                      <Member />
+                      <Member />
+                      <Member />
+                      <Member />
+                    </div>
                   </div>
-                </div>
+                </Segment>
               </Grid.Column>
 
               <Grid.Column width={6}>
-                <img src={require("./logo.jpg")} style={{ width: "100%" }} />
-                <br />
-                <br />
-                <Button
-                  fluid
-                  circular
-                  color="red"
-                  content="Like"
-                  icon="heart"
-                  label={{
-                    basic: true,
-                    color: "red",
-                    pointing: "left",
-                    content: "2,048"
-                  }}
-                />{" "}
-                <Menu inverted stackable fluid>
-                  <Menu.Item header>Sort By</Menu.Item>
+                <Segment color="red" secondary>
+                  <img src={require("./logo.jpg")} style={{ width: "100%" }} />
+                  <br />
+                  <br />
+                  <Button
+                    fluid
+                    circular
+                    color="red"
+                    content="Like"
+                    icon="heart"
+                    label={{
+                      basic: true,
+                      color: "red",
+                      pointing: "left",
+                      content: "2,048"
+                    }}
+                  />{" "}
+                  <Menu inverted stackable fluid>
+                    <Menu.Item header>Sort By</Menu.Item>
 
-                  <Menu.Item> </Menu.Item>
-                </Menu>
-                <Menu compact stackable fluid>
-                  <Menu.Item
-                    name="win"
-                    active={activeItem === "win"}
-                    onClick={this.handleItemClick}
-                    color="red"
-                  />
-                  <Menu.Item
-                    name="loose"
-                    active={activeItem === "loose"}
-                    onClick={this.handleItemClick}
-                    color="red"
-                  />
-                  <Menu.Item
-                    color="red"
-                    name="time"
-                    active={activeItem === "time"}
-                    onClick={this.handleItemClick}
-                  />
-                  <Menu.Item
-                    color="red"
-                    name="score"
-                    active={activeItem === "score"}
-                    onClick={this.handleItemClick}
-                  />
-                </Menu>
-                <table>
-                  <caption>Statement Summary</caption>
-                  <thead>
-                    <tr>
-                      <th scope="col">Team</th>
-                      <th scope="col">Result</th>
-                      <th scope="col">time</th>
-                      <th scope="col">score</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {gameResults.map(a => (
-                      <GameRow
-                        key={a.team}
-                        team={a.team}
-                        result={a.result}
-                        time={a.time}
-                        score={a.score}
-                      />
-                    ))}
-                  </tbody>
-                </table>
-                <TransitionGroup>
-                  <CSSTransition
-                    key={this.state.lastNews[this.state.lastCount].id}
-                    timeout={4500}
-                    classNames="slide"
-                  >
-                    <LastNew
-                      key={this.state.lastCount}
-                      title={this.state.lastNews[this.state.lastCount].title}
-                      subtitle={
-                        this.state.lastNews[this.state.lastCount].subtitle
-                      }
+                    <Menu.Item> </Menu.Item>
+                  </Menu>
+                  <Menu compact stackable fluid>
+                    <Menu.Item
+                      name="win"
+                      active={activeItem === "win"}
+                      onClick={this.handleItemClick}
+                      color="red"
                     />
-                  </CSSTransition>
-                </TransitionGroup>
+                    <Menu.Item
+                      name="loose"
+                      active={activeItem === "loose"}
+                      onClick={this.handleItemClick}
+                      color="red"
+                    />
+                    <Menu.Item
+                      color="red"
+                      name="time"
+                      active={activeItem === "time"}
+                      onClick={this.handleItemClick}
+                    />
+                    <Menu.Item
+                      color="red"
+                      name="score"
+                      active={activeItem === "score"}
+                      onClick={this.handleItemClick}
+                    />
+                  </Menu>
+                  <table>
+                    <caption>Statement Summary</caption>
+                    <thead>
+                      <tr>
+                        <th scope="col">Team</th>
+                        <th scope="col">Result</th>
+                        <th scope="col">time</th>
+                        <th scope="col">score</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {gameResults.map(a => (
+                        <GameRow
+                          key={a.team}
+                          team={a.team}
+                          result={a.result}
+                          time={a.time}
+                          score={a.score}
+                        />
+                      ))}
+                    </tbody>
+                  </table>
+                  <TransitionGroup>
+                    <CSSTransition
+                      key={this.state.lastNews[this.state.lastCount].id}
+                      timeout={4500}
+                      classNames="slide"
+                    >
+                      <LastNew
+                        key={this.state.lastCount}
+                        title={this.state.lastNews[this.state.lastCount].title}
+                        subtitle={
+                          this.state.lastNews[this.state.lastCount].subtitle
+                        }
+                      />
+                    </CSSTransition>
+                  </TransitionGroup>
+                </Segment>
               </Grid.Column>
             </Grid.Row>
           </Grid>

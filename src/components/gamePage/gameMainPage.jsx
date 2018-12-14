@@ -5,6 +5,7 @@ import RespTable from "../respTable";
 import { Grid, Segment, Container } from "semantic-ui-react";
 import FootBallGame from "./footballGame";
 import BasketGame from "./basketGame";
+import { Player } from "video-react";
 
 class GameMainPage extends Component {
   state = {
@@ -39,9 +40,9 @@ class GameMainPage extends Component {
           </Grid.Column>
           <Grid.Column width={10}>
             {this.state.field === "basketball" ? (
-              <FootBallGame>'s'</FootBallGame>
+              <FootBallGame />
             ) : (
-              <BasketGame>'d'</BasketGame>
+              <BasketGame />
             )}
           </Grid.Column>
         </Grid>

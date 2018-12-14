@@ -448,9 +448,15 @@ body {
   margin-bottom: 15px;
 }
 
-.alert.success {background-color: #4CAF50;}
-.alert.info {background-color: #2196F3;}
-.alert.warning {background-color: #ff9800;}
+.alert.success {
+  background-color: #4caf50;
+}
+.alert.info {
+  background-color: #2196f3;
+}
+.alert.warning {
+  background-color: #ff9800;
+}
 
 .closebtn {
   margin-left: 15px;
@@ -465,4 +471,9 @@ body {
 
 .closebtn:hover {
   color: black;
+}
+video {
+  margin: 30px;
+  width: 500px;
+  max-width: 85%;
 }

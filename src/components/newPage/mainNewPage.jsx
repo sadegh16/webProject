@@ -73,32 +73,58 @@ class MainNewPage extends Component {
           <Grid.Column width={4}>
             <h2>Related To</h2>
             <br />
-            <TransitionGroup>
-              <CSSTransition
-                key={this.state.lastNews[this.state.lastCount].id}
-                timeout={4500}
-                classNames="slide"
-              >
-                <LastNew
-                  key={this.state.lastCount}
-                  title={this.state.lastNews[this.state.lastCount].title}
-                  subtitle={this.state.lastNews[this.state.lastCount].subtitle}
-                />
-              </CSSTransition>
-            </TransitionGroup>
-            <TransitionGroup>
-              <CSSTransition
-                key={this.state.lastNews[this.state.lastCount].id}
-                timeout={4500}
-                classNames="slide"
-              >
-                <LastNew
-                  key={this.state.lastCount}
-                  title={this.state.lastNews[this.state.lastCount].title}
-                  subtitle={this.state.lastNews[this.state.lastCount].subtitle}
-                />
-              </CSSTransition>
-            </TransitionGroup>
+            <Segment inverted secondary>
+              <TransitionGroup>
+                <CSSTransition
+                  key={this.state.lastNews[this.state.lastCount].id}
+                  timeout={4500}
+                  classNames="slide"
+                >
+                  <LastNew
+                    key={this.state.lastCount}
+                    title={this.state.lastNews[this.state.lastCount].title}
+                    subtitle={
+                      this.state.lastNews[this.state.lastCount].subtitle
+                    }
+                  />
+                </CSSTransition>
+              </TransitionGroup>
+              <TransitionGroup>
+                <CSSTransition
+                  key={this.state.lastNews[this.state.lastCount].id}
+                  timeout={4500}
+                  classNames="slide"
+                >
+                  <LastNew
+                    key={this.state.lastCount}
+                    title={this.state.lastNews[this.state.lastCount].title}
+                    subtitle={
+                      this.state.lastNews[this.state.lastCount].subtitle
+                    }
+                  />
+                </CSSTransition>
+              </TransitionGroup>
+            </Segment>
+            <Segment inverted secondary>
+              <video
+                controls
+                autoPlay
+                src={this.props.src}
+                style={{ width: "100%" }}
+              />
+              <video
+                controls
+                autoPlay
+                src={this.props.src}
+                style={{ width: "100%" }}
+              />
+              <video
+                controls
+                autoPlay
+                src={this.props.src}
+                style={{ width: "100%" }}
+              />
+            </Segment>
           </Grid.Column>
         </Grid>
       </containter>
