@@ -124,6 +124,8 @@ class PlayerMainPage extends Component {
     ]
   };
   componentDidMount() {
+
+
     var intervalId = setInterval(() => {
       this.setState({
         lastCount: (this.state.lastCount + 1) % this.state.lastNews.length

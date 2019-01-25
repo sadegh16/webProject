@@ -50,6 +50,11 @@ class TeamPage extends Component {
     direction: "descending"
   };
   componentDidMount() {
+    const { match: { params } } = this.props;
+    fetch(baseURL + 'gameResults/${params.userId}')
+      .then(response => response.json())
+      .then(data => console.log(data));
+
     var intervalId = setInterval(() => {
       this.setState({
         lastCount: (this.state.lastCount + 1) % this.state.lastNews.length
