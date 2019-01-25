@@ -5,7 +5,6 @@ import RespTable from "../respTable";
 import { Grid, Segment, Container } from "semantic-ui-react";
 import FootBallGame from "./footballGame";
 import BasketGame from "./basketGame";
-import { Player } from "video-react";
 
 class GameMainPage extends Component {
   state = {
