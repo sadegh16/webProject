@@ -41,32 +41,11 @@ class PlayerMainPage extends Component {
       "rule"
     ],
     generaltableData: [
-      {
-        name: "John",
-        age: "15",
-        height: "Male",
-        height: "23",
-        weight: "sss",
-        currentTeam: "sss",
-        national: "ss",
-        rule: "ss"
-      }
-    ],
-    specialInfoHeader: [
-      "spring",
-      "goals",
-      "goalPass",
-      "cards",
 
     ],
-
-    // specialInfoHeader2: [
-    //   "2scoreGoals",
-    //   "3scoreGoals",
-    //   "fault ",
-    //   "ribsndhs",
-    //   "play time"
-    // ]
+    specialInfoHeader: [],
+    img: NaN,
+    bio: NaN
 
   };
   componentDidMount() {
@@ -77,9 +56,42 @@ class PlayerMainPage extends Component {
     axios.get(`http://localhost:8000/playerPage/springDetail/${params.pid}`)
       .then(response => {
         this.setState({ specialtableData: response.data })
-        console.log(response.data)
+      });
 
-      })
+
+    axios.get(`http://localhost:8000/playerPage/generalDetail/${params.pid}`)
+      .then(response => {
+
+
+        if (response.data[0].type == "footballist") {
+          this.setState({
+            generaltableData: response.data,
+            specialInfoHeader: [
+              "spring",
+              "goals",
+              "goalPass",
+              "cards",
+
+            ],
+            img: response.data[0].image,
+            bio: response.data[0].bio
+
+          })
+        } else {
+          this.setState({
+            generaltableData: response.data,
+            specialInfoHeader: [
+              "2scoreGoals",
+              "3scoreGoals",
+              "fault ",
+              "ribsndhs",
+              "play time"
+
+            ]
+          })
+        }
+
+      });
     var intervalId = setInterval(() => {
       this.setState({
         lastCount: (this.state.lastCount + 1) % this.state.lastNews.length
@@ -98,16 +110,13 @@ class PlayerMainPage extends Component {
       <Grid stackable columns={2}>
         <Grid.Column width={6}>
           <Segment>
-            <Image src={require("../teamPage/salam.jpg")} />
+            <Image src={`http://localhost:8000/${this.state.img}`} />
           </Segment>
         </Grid.Column>
         <Grid.Column width={10}>
           <Segment>
             <p>
-              kldfweefnwkljnvfwnernverkv <br />
-              verkjngvkljernvkgmrekvgmkerklmvlkregv
-              vwlkmflkweflkewlgfrwlkngvklren vlkre <br />
-              efwlkmceklwfmlwekrnfkerwnmfnwcrelnkfvwrelkgvmreklmglvkrwelkgvnrev
+              {this.state.bio}
             </p>
           </Segment>
           <RespTable

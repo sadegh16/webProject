@@ -2,8 +2,6 @@ import React, { Component } from "react";
 
 class RespTable extends Component {
   state = {
-    data: this.props.data,
-    header: this.props.header
   };
   //
   render() {
@@ -11,18 +9,18 @@ class RespTable extends Component {
       <table>
         <thead>
           <tr>
-            {this.state.header.map(a => (
+            {this.props.header.map(a => (
               <th scope="col">{a}</th>
             ))}
           </tr>
         </thead>
 
         <tbody>
-          {this.state.data.map(a => (
+          {this.props.data.map(a => (
             <tr>
               {console.log(a)}
 
-              {this.state.header.map(b => (
+              {this.props.header.map(b => (
                 <td scope="row" >
                   {console.log(a[b])}
                   {a[b]}
