@@ -20,9 +20,12 @@ class RespTable extends Component {
         <tbody>
           {this.state.data.map(a => (
             <tr>
-              {Object.values(a).map((b, index) => (
-                <td scope="row" data-label={this.state.header[index]}>
-                  {b}
+              {console.log(a)}
+
+              {this.state.header.map(b => (
+                <td scope="row" >
+                  {console.log(a[b])}
+                  {a[b]}
                 </td>
               ))}
             </tr>

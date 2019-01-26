@@ -4,8 +4,10 @@ import FlexTable from "../table";
 import RespTable from "../respTable";
 import LastNew from "../mainPage/lastNew.jsx";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
+import axios from 'axios';
 class PlayerMainPage extends Component {
   state = {
+    specialtableData: [],
     lastNews: [
       {
         id: 1,
@@ -30,7 +32,7 @@ class PlayerMainPage extends Component {
     ],
     lastCount: 0,
     generalInfoHeader: [
-      "Name",
+      "name",
       "age",
       "height",
       "weight",
@@ -50,82 +52,34 @@ class PlayerMainPage extends Component {
         rule: "ss"
       }
     ],
-    specialInfoHeader1: [
+    specialInfoHeader: [
       "spring",
-      "#goals",
-      "#goalPass",
-      "height",
-      "weight",
-      "current Team",
-      "national",
-      "rule"
+      "goals",
+      "goalPass",
+      "cards",
+
     ],
-    specialtableData1: [
-      {
-        spring: "bahar1",
-        goals: "John",
-        goalPass: "15",
-        height: "Male",
-        weight: "23",
-        currentTeam: "sss",
-        national: "ss",
-        rule: "ss"
-      },
-      {
-        spring: "bahar2",
-        goals: "John",
-        goalPass: "15",
-        height: "Male",
-        weight: "23",
-        currentTeam: "sss",
-        national: "ss",
-        rule: "ss"
-      },
-      {
-        spring: "bahar3",
-        goals: "John",
-        goalPass: "15",
-        height: "Male",
-        weight: "23",
-        currentTeam: "sss",
-        national: "ss",
-        rule: "ss"
-      }
-    ],
-    specialInfoHeader2: [
-      "2scoreGoals",
-      "3scoreGoals",
-      "fault ",
-      "ribsndhs",
-      "play time"
-    ],
-    specialtableData2: [
-      {
-        twoscoreGoals: "John",
-        threescoreGoals: "15",
-        fault: "Male",
-        ribsndhs: "23",
-        playTime: "sss"
-      },
-      {
-        twoscoreGoals: "John",
-        threescoreGoals: "15",
-        fault: "Male",
-        ribsndhs: "23",
-        playTime: "sss"
-      },
-      {
-        twoscoreGoals: "John",
-        threescoreGoals: "15",
-        fault: "Male",
-        ribsndhs: "23",
-        playTime: "sss"
-      }
-    ]
+
+    // specialInfoHeader2: [
+    //   "2scoreGoals",
+    //   "3scoreGoals",
+    //   "fault ",
+    //   "ribsndhs",
+    //   "play time"
+    // ]
+
   };
   componentDidMount() {
 
 
+    const { match: { params } } = this.props;
+
+    axios.get(`http://localhost:8000/playerPage/springDetail/${params.pid}`)
+      .then(response => {
+        this.setState({ specialtableData: response.data })
+        console.log(response.data)
+
+      })
     var intervalId = setInterval(() => {
       this.setState({
         lastCount: (this.state.lastCount + 1) % this.state.lastNews.length
@@ -162,8 +116,8 @@ class PlayerMainPage extends Component {
           />
           <hr />
           <RespTable
-            header={this.state.specialInfoHeader1}
-            data={this.state.specialtableData1}
+            header={this.state.specialInfoHeader}
+            data={this.state.specialtableData}
           />
 
           <br />
