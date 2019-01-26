@@ -15,7 +15,7 @@ const routing = (
     <div>
       <Route exact path="/mainPage" component={MainPage} />
       <Route path="/signUp" component={SignUp} />
-      <Route path="/teamPage/:teamName" component={TeamPage} />
+      <Route path="/gameResult/:teamName" component={TeamPage} />
       <Route path="/playerPage/:PlayerID" component={PlayerPage} />
       <Route path="/newPage" component={MainNewPage} />
       <Route path="/league" component={League} />

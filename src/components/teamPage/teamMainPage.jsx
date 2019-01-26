@@ -6,9 +6,11 @@ import LastNew from "../mainPage/lastNew.jsx";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
 import "views/style.css";
 import _ from "lodash";
+import axios from 'axios';
 
 class TeamPage extends Component {
   state = {
+    members: [],
     gameResults: [
       {
         team: "T1",
@@ -50,11 +52,45 @@ class TeamPage extends Component {
     direction: "descending"
   };
   componentDidMount() {
+    console.log("*****ghabl********");
     const { match: { params } } = this.props;
-    fetch(baseURL + 'gameResults/${params.userId}')
-      .then(response => response.json())
-      .then(data => console.log(data));
+    console.log(this.props);
 
+	
+    axios.get(`http://localhost:8000/teamPage/gameResults/${params.teamName}`)
+      .then(response => {
+	console.log(response.data)        
+	const newData = Array.from(response.data, (a) => {
+          if (a.team1 == params.teamName) {
+
+            return {
+              team: a.team2, result: a.team1_score + "-" + a.team2_score, time: a.date, score: a.team1_point,
+              status: a.status
+            }
+          } else {
+
+            return {
+              team: a.team1, result: a.team2_score + "-" + a.team1_score, time: a.date, score: a.team2_point,
+              status: (-1) * a.status
+            }
+          }
+
+
+        }
+        )
+        this.setState({gameResults:newData})
+
+      });
+
+
+
+    axios.get(`http://localhost:8000/teamPage/teamMembers/${params.teamName}`)
+      .then(response => {
+        this.setState({ members: response.data })
+
+      })
+
+    console.log("******bad*******");
     var intervalId = setInterval(() => {
       this.setState({
         lastCount: (this.state.lastCount + 1) % this.state.lastNews.length
@@ -85,7 +121,7 @@ class TeamPage extends Component {
     }
   };
   render() {
-    const { activeItem, gameResults } = this.state;
+    const { activeItem, gameResults, members } = this.state;
     return (
       <div>
         <img src={require("./team.jpg")} style={{ width: "100%" }} />
@@ -98,12 +134,9 @@ class TeamPage extends Component {
                 <Segment color="red" secondary>
                   <div className="container">
                     <div className="row">
-                      <Member />
-                      <Member />
-                      <Member />
-                      <Member />
-                      <Member />
-                      <Member />
+                      {members.map(a => (
+                        <Member image={a.image} name={a.name} born={a.born} position={a.rule} previousClub={a.previousClub} squad={a.squad} />
+                      ))}
                     </div>
                   </div>
                 </Segment>

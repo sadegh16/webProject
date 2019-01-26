@@ -20,14 +20,18 @@ import MessagePage from "./components/profileMessage/messagePage.jsx";
 
 import { Route, Link, BrowserRouter as Router } from "react-router-dom";
 import SignUpPage from "./components/signUp/signUpPage";
+const baseURL = 'localhost:8000/'
+
+
+
 const routing = (
   <Router>
     <div>
       <Route exact path="/mainPage" component={MainPage} />
       <Route path="/signIn" component={SignIn} />
-      <Route path="/teamPage" component={TeamPage} />
-      <Route path="/playerPage" component={PlayerPage} />
-      <Route path="/newPage" component={MainNewPage} />
+      <Route path="/teamPage/:teamName" component={TeamPage} />
+      <Route path="/playerPage/:pid" component={PlayerPage} />
+      <Route path="/newPage/:nid" component={MainNewPage} />
       <Route path="/league" component={League} />
       <Route path="/gamePage" component={GameMainPage} />
       <Route path="/messagePage" component={MessagePage} />

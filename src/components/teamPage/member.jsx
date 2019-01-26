@@ -3,26 +3,23 @@ import "views/style.css";
 import { Link } from "react-router-dom";
 class Member extends Component {
   state = {
-    // born:this.props.Born,
-    // position:this.props.Position,
-    // Squad:this.props.Squad,
-    // PreviousClub:this.props.PreviousClub
-
-    born: " sep 31, 1988",
-    position: " striker",
-    Squad: " 11",
-    PreviousClub: " Badda"
+    name: this.props.name,
+    born: this.props.born,
+    position: this.props.position,
+    Squad: this.props.squad,
+    PreviousClub: this.props.previousClub,
+    img:this.props.image,
   };
   render() {
     return (
       <div className="col-md-3 col-sm-6 col-xs-6">
         <div className="our-team">
-          <img className="memPic" src={require("./salam.jpg")} />
+          <img className="memPic" src={`http://localhost:8000/${this.state.img}`} />
           <div className="person-details">
             <div className="overly-bg" />
             <a href="">
               <Link to="/playerPage">
-                <h5 className="person-name">Masud Rana</h5>
+                <h5 className="person-name">{this.state.name}</h5>
               </Link>
             </a>
             <table className="person-info">
