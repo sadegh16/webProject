@@ -6,15 +6,18 @@ import { Message, Grid, Segment } from "semantic-ui-react";
 import NewsField from "../mainPage/newsField";
 
 class FootBallGame extends Component {
-  state = {};
+  state = {
+  };
   render() {
     return (
       <div>
-        <Statistic />
-        <PlayerTable />
+        <Statistic info={this.props.generalInfo} />
+        <Statistic info={this.props.specialInfo} />
+
+        <PlayerTable bestPlayer={this.props.bestPlayer} playerInfo={this.props.playerInfo} />
         <Message>
           <Message.Header>REPORT</Message.Header>
-          <p>We update report here to better service</p>
+          <p>{this.props.report.last_report}</p>
         </Message>
         <NewsField field="football" />
 

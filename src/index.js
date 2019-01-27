@@ -33,7 +33,7 @@ const routing = (
       <Route path="/playerPage/:pid" component={PlayerPage} />
       <Route path="/newPage/:nid" component={MainNewPage} />
       <Route path="/league" component={League} />
-      <Route path="/gamePage" component={GameMainPage} />
+      <Route path="/gamePage/:team1/:team2/:date" component={GameMainPage} />
       <Route path="/messagePage" component={MessagePage} />
       <Route path="/signUp" component={SignUpPage} />
     </div>

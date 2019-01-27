@@ -39,6 +39,26 @@ class NewsField extends Component {
   }
 
   render() {
+    var lastNews = [
+      <p>aaaaaaaa</p>,
+      <p>bbbbbbb</p>,
+      <p>ccccccc</p>,
+      <p>aaaaaaaa</p>,
+      <p>bbbbbbb</p>,
+      <p>ccccccc</p>,
+      <p>aaaaaaaa</p>,
+      <p>bbbbbbb</p>,
+      <p>ccccccc</p>,
+      <p>aaaaaaaa</p>,
+      <p>bbbbbbb</p>,
+      <p>ccccccc</p>,
+      <p>aaaaaaaa</p>,
+      <p>bbbbbbb</p>,
+      <p>ccccccc</p>,
+      <p>aaaaaaaa</p>,
+      <p>bbbbbbb</p>,
+      <p>ccccccc</p>,
+    ]
     return (
       <div className="field">
         <h2>{this.state.field}</h2>
@@ -56,6 +76,8 @@ class NewsField extends Component {
               />
             </CSSTransition>
           </TransitionGroup>
+
+
           <TransitionGroup>
             <CSSTransition
               key={this.state.favorites[this.state.favorCount].id}
@@ -68,6 +90,12 @@ class NewsField extends Component {
               />
             </CSSTransition>
           </TransitionGroup>
+
+          <div className="paincontainer">
+            <div className="pane">
+              {lastNews}
+            </div>
+          </div>
         </div>
       </div>
     );

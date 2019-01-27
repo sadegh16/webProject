@@ -477,3 +477,21 @@ video {
   width: 500px;
   max-width: 85%;
 }
+
+
+
+.paincontainer {
+  position: relative;
+  display: flex;
+  height: 200px;
+  width: 100%;
+}
+
+.pane {
+  flex: 1 auto;
+  padding: 10px;
+  overflow: auto;
+  overflow-y: scroll;
+  border: 1px solid #000;
+  flex: 1
+}

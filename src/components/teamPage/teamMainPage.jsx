@@ -52,15 +52,14 @@ class TeamPage extends Component {
     direction: "descending"
   };
   componentDidMount() {
-    console.log("*****ghabl********");
     const { match: { params } } = this.props;
     console.log(this.props);
 
-	
+
     axios.get(`http://localhost:8000/teamPage/gameResults/${params.teamName}`)
       .then(response => {
-	console.log(response.data)        
-	const newData = Array.from(response.data, (a) => {
+        console.log(response.data)
+        const newData = Array.from(response.data, (a) => {
           if (a.team1 == params.teamName) {
 
             return {
@@ -78,7 +77,7 @@ class TeamPage extends Component {
 
         }
         )
-        this.setState({gameResults:newData})
+        this.setState({ gameResults: newData })
 
       });
 
@@ -105,20 +104,49 @@ class TeamPage extends Component {
   }
 
   handleItemClick = (e, { name }) => {
-    var { column, gameResults } = this.state;
-    var tmpName = name;
-    if (name === "win" || name === "loose") tmpName = "status";
 
-    if (column !== name) {
-      this.setState({
-        column: name,
-        gameResults:
-          name !== "loose"
-            ? _.sortBy(gameResults, [tmpName]).reverse()
-            : _.sortBy(gameResults, [tmpName]),
-        activeItem: name
-      });
-    }
+    const { match: { params } } = this.props;
+    axios.get(`http://localhost:8000/teamPage/gameResults/${params.teamName}`, {
+      params: {
+        sort: name
+      }
+    })
+      .then(response => {
+        const newData = Array.from(response.data, (a) => {
+          console.log(newData)
+          if (a.team1 == params.teamName) {
+
+            return {
+              team: a.team2, result: a.team1_score + "-" + a.team2_score, time: a.date, score: a.team1_point,
+              status: a.status
+            }
+          } else {
+
+            return {
+              team: a.team1, result: a.team2_score + "-" + a.team1_score, time: a.date, score: a.team2_point,
+              status: (-1) * a.status
+            }
+          }
+
+
+        }
+        )
+        this.setState({ gameResults: newData, activeItem: name })
+
+      })
+
+
+
+    // if (column !== name) {
+    //   this.setState({
+    //     column: name,
+    //     gameResults:
+    //       name !== "loose"
+    //         ? _.sortBy(gameResults, [tmpName]).reverse()
+    //         : _.sortBy(gameResults, [tmpName]),
+    //     activeItem: name
+    //   });
+    // }
   };
   render() {
     const { activeItem, gameResults, members } = this.state;
@@ -180,7 +208,7 @@ class TeamPage extends Component {
                     />
                     <Menu.Item
                       color="red"
-                      name="time"
+                      name="date"
                       active={activeItem === "time"}
                       onClick={this.handleItemClick}
                     />
