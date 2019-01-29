@@ -53,8 +53,17 @@ class PlayerMainPage extends Component {
 
     const { match: { params } } = this.props;
 
-    axios.get(`http://localhost:8000/playerPage/springDetail/${params.pid}`)
+
+    axios.get(`http://localhost:8000/playerPage/playerNews/${params.pid}`)
       .then(response => {
+        console.log(response.data)
+        this.setState({ lastNews: response.data })
+
+      })
+    axios.get(`http://localhost:8000/playerPage/seasonDetail/${params.pid}`)
+      .then(response => {
+        console.log(response.data)
+
         this.setState({ specialtableData: response.data })
       });
 
@@ -62,12 +71,12 @@ class PlayerMainPage extends Component {
     axios.get(`http://localhost:8000/playerPage/generalDetail/${params.pid}`)
       .then(response => {
 
-
-        if (response.data[0].type == "footballist") {
+        console.log(response.data)
+        if (response.data[0].type == "F") {
           this.setState({
             generaltableData: response.data,
             specialInfoHeader: [
-              "spring",
+              "season",
               "goals",
               "goalPass",
               "cards",
@@ -81,6 +90,7 @@ class PlayerMainPage extends Component {
           this.setState({
             generaltableData: response.data,
             specialInfoHeader: [
+              "season",
               "2scoreGoals",
               "3scoreGoals",
               "fault ",
@@ -131,19 +141,27 @@ class PlayerMainPage extends Component {
 
           <br />
           <hr />
-          <TransitionGroup>
-            <CSSTransition
-              key={this.state.lastNews[this.state.lastCount].id}
-              timeout={4500}
-              classNames="slide"
-            >
-              <LastNew
-                key={this.state.lastCount}
-                title={this.state.lastNews[this.state.lastCount].title}
-                subtitle={this.state.lastNews[this.state.lastCount].subtitle}
-              />
-            </CSSTransition>
-          </TransitionGroup>
+          <Segment className="slideShow">
+            <TransitionGroup>
+              <CSSTransition
+                key={this.state.lastNews[this.state.lastCount].id}
+                timeout={4500}
+                classNames="move"
+              >
+                <Segment>
+                  <LastNew
+                    key={this.state.lastCount}
+                    title={this.state.lastNews[this.state.lastCount].title}
+                    subtitle={this.state.lastNews[this.state.lastCount].subtitle}
+                    content={this.state.lastNews[this.state.lastCount].content}
+                    image={this.state.lastNews[this.state.lastCount].image}
+
+                  />
+                </Segment>
+              </CSSTransition>
+            </TransitionGroup>
+          </Segment>
+
         </Grid.Column>
       </Grid>
     );

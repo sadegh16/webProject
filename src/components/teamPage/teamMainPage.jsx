@@ -55,6 +55,13 @@ class TeamPage extends Component {
     const { match: { params } } = this.props;
     console.log(this.props);
 
+    axios.get(`http://localhost:8000/teamPage/teamNews/${params.teamName}`)
+      .then(response => {
+        console.log(response.data)
+        this.setState({ lastNews: response.data })
+
+      })
+
 
     axios.get(`http://localhost:8000/teamPage/gameResults/${params.teamName}`)
       .then(response => {
@@ -241,22 +248,26 @@ class TeamPage extends Component {
                       ))}
                     </tbody>
                   </table>
-                  <TransitionGroup>
-                    <CSSTransition
-                      key={this.state.lastNews[this.state.lastCount].id}
-                      timeout={4500}
-                      classNames="slide"
-                    >
-                      <LastNew
-                        key={this.state.lastCount}
-                        title={this.state.lastNews[this.state.lastCount].title}
-                        subtitle={
-                          this.state.lastNews[this.state.lastCount].subtitle
-                        }
-                      />
-                    </CSSTransition>
-                  </TransitionGroup>
                 </Segment>
+
+
+                <div className="paincontainer">
+                  <div className="pane">
+                    {this.state.lastNews.map(a => (
+                      <Segment>
+                        <LastNew
+                          key={a.lastCount}
+                          title={a.title}
+                          subtitle={a.subtitle}
+                          content={a.content}
+                          image={a.image}
+
+                        />
+                      </Segment>
+                    ))}
+                  </div>
+                </div>
+
               </Grid.Column>
             </Grid.Row>
           </Grid>

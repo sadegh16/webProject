@@ -1,32 +1,39 @@
 import React, { Component } from "react";
-import LastNew from "./lastNew";
-import Favorite from "./favorite";
+import Game from "./game";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
 import "views/style.css";
+import axios from 'axios';
+import { Input, Button, Segment } from "semantic-ui-react";
+
+
 //
 class GameField extends Component {
   state = {
+    lastCount: 0,
     field: this.props.field,
-    favorites: [
-      { id: 1, team: "favorGame1", teamNew: "won" },
-      { id: 2, team: "favorGame2", teamNew: "loose" },
-      { id: 3, team: "favorGame3", teamNew: "not played" },
-      { id: 4, team: "favorGame4", teamNew: "win" }
-    ],
+    favorites: [],
     favorCount: 0,
-    todayGames: [
-      { id: 1, title: "soccer1", subtitle: "won" },
-      { id: 2, title: "basket2", subtitle: "loose" },
-      { id: 3, title: "soccer3", subtitle: "win" },
-      { id: 4, title: "basket4", subtitle: "loose" }
-    ],
+    games: [{ id: 1 }],
     gameCount: 0
   };
 
   componentDidMount() {
+
+
+    console.log("***********")
+    axios.get(`http://localhost:8000/mainPage/allGames/`)
+      .then(response => {
+        console.log(response.data)
+        this.setState({ games: response.data })
+
+      })
+
+
+
+
     var intervalId = setInterval(() => {
       this.setState({
-        lastCount: (this.state.gameCount + 1) % this.state.todayGames.length,
+        lastCount: (this.state.lastCount + 1) % this.state.games.length,
         favorCount: (this.state.favorCount + 1) % this.state.favorites.length
       });
     }, 4400);
@@ -41,37 +48,117 @@ class GameField extends Component {
 
   render() {
     return (
-      <div className="gamefield">
-        <h2>{this.state.field}</h2>
-        <div className="gamesRow">
-          <TransitionGroup>
-            <CSSTransition
-              key={this.state.todayGames[this.state.gameCount].id}
-              timeout={4500}
-              classNames="move"
-            >
-              <LastNew
-                key={this.state.gameCount}
-                title={this.state.todayGames[this.state.gameCount].title}
-                subtitle={this.state.todayGames[this.state.gameCount].subtitle}
-              />
+      <div>
+        <br />
+        <br />
+
+
+        <div className="field" >
+          <div className="field">
+            <div className="gamesRow">
+              <Segment className="slideShow gameSilde"  >
+                <TransitionGroup>
+                  <CSSTransition
+                    key={this.state.games[this.state.lastCount].id}
+                    timeout={4500}
+                    classNames="move"
+                  >
+                    <Game
+                      key={this.state.lastCount}
+                      team1={this.state.games[this.state.lastCount].team1}
+                      team2={this.state.games[this.state.lastCount].team2}
+                      team1_score={this.state.games[this.state.lastCount].team1_score}
+                      team2_score={this.state.games[this.state.lastCount].team2_score}
+                      team1_point={this.state.games[this.state.lastCount].team1_point}
+                      team2_point={this.state.games[this.state.lastCount].team2_point}
+                      date={this.state.games[this.state.lastCount].date}
+                      image={this.state.games[this.state.lastCount].image}
+
+                    />
+                  </CSSTransition>
+                </TransitionGroup>
+              </Segment>
+              <div className="paincontainer">
+                <div className="pane">
+                  {this.state.games.map(a => (
+                    <Segment>
+                      <Game
+                        key={this.state.lastCount}
+                        team2={a.title}
+                        team1={a.title}
+                        team1_score={a.team1_score}
+                        team2_score={a.team2_score}
+                        team1_point={a.team1_point}
+                        team2_point={a.team2_point}
+                        date={a.date}
+                        image={a.image}
+
+                      />
+                    </Segment>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="field">
+
+            <div className="newsRow">
+              {this.state.favorites.length > 0 ?
+                <div>
+                  <TransitionGroup>
+                    <CSSTransition
+                      key={this.state.favorites[this.state.favorCount].id}
+                      timeout={3000}
+                      classNames="slide"
+                    >
+                      <Game
+                        key={this.state.lastCount}
+                        team2={this.state.favorites[this.state.lastCount].title}
+                        team1={this.state.favorites[this.state.lastCount].title}
+                        team1_score={this.state.favorites[this.state.lastCount].team1_score}
+                        team2_score={this.state.favorites[this.state.lastCount].team2_score}
+                        team1_point={this.state.favorites[this.state.lastCount].team1_point}
+                        team2_point={this.state.favorites[this.state.lastCount].team2_point}
+                        date={this.state.favorites[this.state.lastCount].date}
+                        image={this.state.favorites[this.state.lastCount].image}
+
+                      />
+                      />
             </CSSTransition>
-          </TransitionGroup>
-          <TransitionGroup>
-            <CSSTransition
-              key={this.state.favorites[this.state.favorCount].id}
-              timeout={6000}
-              classNames="slide"
-            >
-              <Favorite
-                team={this.state.favorites[this.state.favorCount].team}
-                teamNew={this.state.favorites[this.state.favorCount].teamNew}
-              />
-            </CSSTransition>
-          </TransitionGroup>
+                  </TransitionGroup>
+
+                  <div className="paincontainer">
+                    <div className="pane">
+                      {this.state.favorites.map(a => (
+                        <Segment>
+                          <Game
+                            key={this.state.lastCount}
+                            team2={a.title}
+                            team1={a.title}
+                            team1_score={a.team1_score}
+                            team2_score={a.team2_score}
+                            team1_point={a.team1_point}
+                            team2_point={a.team2_point}
+                            date={a.date}
+                            image={a.image}
+
+                          />
+                          />
+                      </Segment>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+                : <h1 > NO Favorite</h1>}
+
+            </div>
+          </div>
+
         </div>
+
       </div>
-    );
+    )
   }
 }
 

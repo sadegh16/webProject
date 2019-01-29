@@ -7,10 +7,13 @@ class LastNew extends Component {
     return (
       <div>
         <Link to="/newPage">
-          <img src={require("./res/Untitled-2.jpg")} />
+          <img width={300} height={200} src={`http://localhost:8000/${this.props.image}`} />
         </Link>
+
         <h1 class="new-title">{this.props.title}</h1>
-        <p class="new-subtitle">{this.props.subtitle}</p>
+        <h3 class="new-tag">{this.props.subtitle}</h3>
+        <h9 class="new-tag">{this.props.releaseTime}</h9>
+        <p class="new-subtitle">{this.props.content}</p>
       </div>
     );
   }

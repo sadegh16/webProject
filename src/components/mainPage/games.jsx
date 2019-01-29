@@ -7,7 +7,6 @@ class Games extends Component {
       <div>
         <h1 className="navbar navbar-light bg-light">Games</h1>
         <GameField field="fooot" />
-        <GameField field="bask" />
       </div>
     );
   }

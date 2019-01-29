@@ -30,7 +30,7 @@ class MainPage extends Component {
             <News />
           </Grid.Column>
           <Grid.Column>
-            <Games />{" "}
+            <Games />
           </Grid.Column>
         </Grid>
       </div>

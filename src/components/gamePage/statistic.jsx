@@ -17,7 +17,7 @@ export default class Statistic extends Component {
     return (
       <Segment inverted secondary>
         {this.props.info.map(a => (
-          <Status g1={a.team1} g2={a.team1} title={a.title} />
+          <Status g1={a.team1} g2={a.team2} title={a.title} />
         ))}
       </Segment>
     );

@@ -4,6 +4,7 @@ import SortedTable from "../sortedTable";
 import PlayerTable from "./playerTable";
 import { Message, Grid, Segment } from "semantic-ui-react";
 import NewsField from "../mainPage/newsField";
+import LastNew from "../mainPage/lastNew.jsx";
 
 class FootBallGame extends Component {
   state = {
@@ -19,15 +20,29 @@ class FootBallGame extends Component {
           <Message.Header>REPORT</Message.Header>
           <p>{this.props.report.last_report}</p>
         </Message>
-        <NewsField field="football" />
+        <div className="paincontainer">
+          <div className="pane">
+            {this.props.lastNews.map(a => (
+              <Segment>
+                <LastNew
+                  key={a.lastCount}
+                  title={a.title}
+                  subtitle={a.subtitle}
+                  content={a.content}
+                  image={a.image}
 
+                />
+              </Segment>
+            ))}
+          </div>
+        </div>
         <Segment inverted secondary>
           <Grid columns={2}>
             <Grid.Column>
               <video
                 controls
-                autoPlay
-                src={this.props.src}
+
+                src={`http://localhost:8000/${this.props.media1}`}
                 style={{ width: "100%" }}
               />
             </Grid.Column>
@@ -35,7 +50,7 @@ class FootBallGame extends Component {
               <video
                 controls
                 autoPlay
-                src={this.props.src}
+                src={`http://localhost:8000/${this.props.media2}`}
                 style={{ width: "100%" }}
               />
             </Grid.Column>

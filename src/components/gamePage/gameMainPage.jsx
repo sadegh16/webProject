@@ -6,6 +6,7 @@ import { Grid, Segment, Container } from "semantic-ui-react";
 import FootBallGame from "./footballGame";
 import BasketGame from "./basketGame";
 import axios from 'axios';
+import LastNew from "../mainPage/lastNew.jsx";
 
 class GameMainPage extends Component {
   state = {
@@ -14,20 +15,31 @@ class GameMainPage extends Component {
     specialInfo: [],
     playerInfo: [],
     field: "basketball",
+    media1: NaN,
+    media2: NaN,
+
     events: [
-      // ["start Game"],
-      // ["Event1 happend"],
-      // ["Event2 happend"],
-      // ["Event3 happend", "Event4 happend"],
-      // ["Event5 happend"],
-      // ["Event6 happend"],
-      // ["Event7 happend"],
-      // ["Event8 happend"]
-    ]
+
+    ],
+    lastNews: []
   };
 
   componentDidMount() {
     const { match: { params } } = this.props;
+
+    axios.get(`http://localhost:8000/gamePage/gameNews/`, {
+
+      params: {
+        team1: params.team1,
+        team2: params.team2,
+        date: params.date,
+      }
+    })
+      .then(response => {
+        console.log(response.data)
+        this.setState({ lastNews: response.data })
+
+      })
 
     axios.get(`http://localhost:8000/gamePage/generalDetail/`, {
 
@@ -40,12 +52,20 @@ class GameMainPage extends Component {
     })
       .then(response => {
         const newData = []
-        newData.push({ team1: response.data[0].team1, title: "name", team2: response.data[0].team2 })
-        newData.push({ team1: response.data[0].team1_score, title: "score", team2: response.data[0].team2_score })
-        newData.push({ team1: response.data[0].team1_point, title: "point", team2: response.data[0].team2_point })
-        console.log(newData)
-        this.setState({ generalInfo: newData })
+        console.log(response.data)
+        if (response.data.length > 0) {
+          newData.push({ team1: response.data[0].team1, title: "name", team2: response.data[0].team2 })
+          newData.push({ team1: response.data[0].team1_score, title: "score", team2: response.data[0].team2_score })
+          newData.push({ team1: response.data[0].team1_point, title: "point", team2: response.data[0].team2_point })
+          console.log(newData)
 
+          this.setState({
+            generalInfo: newData,
+            media1: response.data[0].media1,
+            media2: response.data[0].media2,
+
+          })
+        }
 
       })
 
@@ -97,9 +117,6 @@ class GameMainPage extends Component {
 
       })
 
-
-
-
     var intervalId = setInterval(() => {
 
       axios.get(`http://localhost:8000/gamePage/gameReport/`, {
@@ -136,12 +153,15 @@ class GameMainPage extends Component {
             </Segment>
           </Grid.Column>
           <Grid.Column width={10}>
-            {this.state.field === "basketball" ? (
+            <FootBallGame generalInfo={this.state.generalInfo} specialInfo={this.state.specialInfo}
+              playerInfo={this.state.playerInfo} report={this.state.report} lastNews={this.state.lastNews}
+              media1={this.state.media1} media2={this.state.media2} />
+            {/* {this.state.field === "basketball" ? (
               <FootBallGame generalInfo={this.state.generalInfo} specialInfo={this.state.specialInfo}
-                playerInfo={this.state.playerInfo} report={this.state.report} />
+                playerInfo={this.state.playerInfo} report={this.state.report} lastNews={this.state.lastNews} />
             ) : (
                 <BasketGame />
-              )}
+              )} */}
           </Grid.Column>
         </Grid>
       </Container>

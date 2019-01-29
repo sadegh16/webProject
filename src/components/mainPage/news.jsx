@@ -6,7 +6,7 @@ class News extends Component {
 
 
   render() {
-    var array = ["football", "basketball"];
+    var array = ["football"];
 
     return (
       <div>
