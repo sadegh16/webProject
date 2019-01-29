@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import Member from "./member";
-import { Grid, Menu, Button, Segment } from "semantic-ui-react";
+import { Input, Grid, Menu, Button, Segment } from "semantic-ui-react";
 import GameRow from "./gameResult";
 import LastNew from "../mainPage/lastNew.jsx";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
@@ -10,6 +10,7 @@ import axios from 'axios';
 
 class TeamPage extends Component {
   state = {
+    filter: "",
     members: [],
     gameResults: [
       {
@@ -51,6 +52,12 @@ class TeamPage extends Component {
     column: null,
     direction: "descending"
   };
+  handleChange = (e, { value }) => {
+    (this.state.filter = value)
+    console.log(value)
+
+  }
+
   componentDidMount() {
     const { match: { params } } = this.props;
     console.log(this.props);
@@ -159,6 +166,7 @@ class TeamPage extends Component {
     const { activeItem, gameResults, members } = this.state;
     return (
       <div>
+
         <img src={require("./team.jpg")} style={{ width: "100%" }} />
         <br />
         <br />
@@ -168,9 +176,16 @@ class TeamPage extends Component {
               <Grid.Column width={10}>
                 <Segment color="red" secondary>
                   <div className="container">
+                    <div >
+                      <Button content='filter' onClick={() => this.setState({})} />
+                      <Input onChange={this.handleChange} placeholder='post' />
+                    </div>
+
                     <div className="row">
                       {members.map(a => (
-                        <Member image={a.image} name={a.name} born={a.born} position={a.rule} previousClub={a.previousClub} squad={a.squad} />
+                        // console.log((a.rule))
+                        (a.rule == this.state.filter || this.state.filter == "") ? <Member image={a.image} name={a.name} born={a.born} position={a.rule} previousClub={a.previousClub} squad={a.squad} />
+                          : []
                       ))}
                     </div>
                   </div>

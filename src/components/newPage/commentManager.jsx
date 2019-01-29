@@ -2,33 +2,27 @@ import React, { Component } from "react";
 import "views/style.css";
 import { Form, Comment, Button } from "semantic-ui-react";
 import ResComment from "./resComment";
+import axios from 'axios';
+
 class CommentManager extends Component {
   state = {
-    comments: [
-      { name: "rez", time: "today", text: "sallllllam" },
-      { name: "rez2", time: "today1", text: "sallllllam" }
-    ],
-
     textComment: ""
   };
   ////
   onSubmit = (e, { value }) => {
-    const comments = [...this.state.comments];
-    comments.push({
-      name: "sadegh",
-      time: "today",
-      text: this.state.textComment
-    });
-    this.setState({ comments });
+    this.props.helperFunc(this.state.textComment)
   };
 
   onchange = (e, { value }) => {
     this.state.textComment = value;
   };
+
+
+
   render() {
     return (
       <Comment.Group size={16}>
-        {this.state.comments.map(a => (
+        {this.props.comments.map(a => (
           <ResComment name={a.name} time={a.time} text={a.text} leaf={false} />
         ))}
         <Form size={14} onSubmit={this.onSubmit}>

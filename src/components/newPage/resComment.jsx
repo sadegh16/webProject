@@ -24,7 +24,7 @@ class ResComment extends Component {
           </Comment.Actions>
         </Comment.Content>
         <Comment.Group>
-          {this.state.leaf
+          {/* {this.state.leaf
             ? []
             : [
                 this.state.childs.map(a => (
@@ -35,7 +35,7 @@ class ResComment extends Component {
                     leaf={true}
                   />
                 ))
-              ]}
+              ]} */}
         </Comment.Group>
       </Comment>
     );
