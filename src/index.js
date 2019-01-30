@@ -36,6 +36,7 @@ const routing = (
       <Route path="/gamePage/:team1/:team2/:date" component={GameMainPage} />
       <Route path="/messagePage" component={MessagePage} />
       <Route path="/signUp" component={SignUpPage} />
+      <Route path='/admin' component={() => { window.location = 'http://localhost:8000/admin'; return null; }} />
     </div>
   </Router>
 );

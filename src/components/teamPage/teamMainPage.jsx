@@ -209,7 +209,7 @@ class TeamPage extends Component {
                       pointing: "left",
                       content: "2,048"
                     }}
-                  />{" "}
+                  />
                   <Menu inverted stackable fluid>
                     <Menu.Item header>Sort By</Menu.Item>
 

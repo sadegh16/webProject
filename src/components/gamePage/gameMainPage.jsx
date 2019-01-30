@@ -2,12 +2,12 @@ import React, { Component } from "react";
 import EventLine from "./eventLine";
 import "views/style.css";
 import RespTable from "../respTable";
-import { Grid, Segment, Container } from "semantic-ui-react";
+import { Grid, Button, Segment, Container } from "semantic-ui-react";
 import FootBallGame from "./footballGame";
 import BasketGame from "./basketGame";
 import axios from 'axios';
 import LastNew from "../mainPage/lastNew.jsx";
-
+import { Redirect } from 'react-router';
 class GameMainPage extends Component {
   state = {
     report: NaN,
@@ -26,7 +26,7 @@ class GameMainPage extends Component {
 
   componentDidMount() {
     const { match: { params } } = this.props;
-
+    return (<Redirect to="http://localhost:8000/admin" />);
     axios.get(`http://localhost:8000/gamePage/gameNews/`, {
 
       params: {
@@ -135,6 +135,19 @@ class GameMainPage extends Component {
     }, 5500);
 
   }
+  likeClick = () => {
+    const { match: { params } } = this.props;
+    axios.post(`http://localhost:8000/gamePage/addLike/`, {
+      params: {
+        team1: params.team1,
+        team2: params.team2,
+        date: params.date,
+      }
+    })
+
+
+
+  }
   render() {
     return (
       <Container>
@@ -150,7 +163,22 @@ class GameMainPage extends Component {
                   ))}
                 </div>
               </div>
+
             </Segment>
+            <Button
+              fluid
+              circular
+              onClick={this.likeClick}
+              color="red"
+              content="Like"
+              icon="heart"
+              label={{
+                basic: true,
+                color: "red",
+                pointing: "left",
+                content: "2,048"
+              }}
+            />
           </Grid.Column>
           <Grid.Column width={10}>
             <FootBallGame generalInfo={this.state.generalInfo} specialInfo={this.state.specialInfo}
