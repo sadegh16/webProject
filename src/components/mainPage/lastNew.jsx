@@ -6,7 +6,7 @@ class LastNew extends Component {
   render() {
     return (
       <div>
-        <Link to="/admin">
+        <Link to={`/newPage/${this.props.id}`}>
           <img width={300} height={200} src={`http://localhost:8000/${this.props.image}`} />
         </Link>
 

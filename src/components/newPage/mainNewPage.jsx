@@ -6,6 +6,7 @@ import "views/style.css";
 import commentManager from "./commentManager";
 import LastNew from "../mainPage/lastNew.jsx";
 import axios from 'axios';
+import { Link } from "react-router-dom";
 
 class MainNewPage extends Component {
   state = {
@@ -89,6 +90,12 @@ class MainNewPage extends Component {
     clearInterval(this.state.intervalId);
   }
 
+  handleLike = () => {
+    const { match: { params } } = this.props;
+
+    axios.post(`http://localhost:8000/newPage/addFavorite/${params.id}`)
+
+  }
   render() {
     return (
       <div className="newsPage">
@@ -107,8 +114,10 @@ class MainNewPage extends Component {
                   basic: true,
                   color: "red",
                   pointing: "left",
-                  content: "2,048"
+                  content: this.state.pm.likes
                 }}
+                onClick={this.handleLike}
+
               />
               <br />
 
@@ -144,6 +153,7 @@ class MainNewPage extends Component {
                         content={this.state.lastNews[this.state.lastCount].content}
                         image={this.state.lastNews[this.state.lastCount].image}
                         releaseTime={this.state.lastNews[this.state.lastCount].releaseTime}
+                        id={this.state.lastNews[this.state.lastCount].id}
 
                       />
                     </Segment>

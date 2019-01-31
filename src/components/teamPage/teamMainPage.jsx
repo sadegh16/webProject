@@ -7,6 +7,7 @@ import { CSSTransition, TransitionGroup } from "react-transition-group";
 import "views/style.css";
 import _ from "lodash";
 import axios from 'axios';
+import { Link } from "react-router-dom";
 
 class TeamPage extends Component {
   state = {
@@ -184,7 +185,7 @@ class TeamPage extends Component {
                     <div className="row">
                       {members.map(a => (
                         // console.log((a.rule))
-                        (a.rule == this.state.filter || this.state.filter == "") ? <Member image={a.image} name={a.name} born={a.born} position={a.rule} previousClub={a.previousClub} squad={a.squad} />
+                        (a.rule == this.state.filter || this.state.filter == "") ? <Member id={a.id} image={a.image} name={a.name} born={a.born} position={a.rule} previousClub={a.previousClub} squad={a.squad} />
                           : []
                       ))}
                     </div>
@@ -253,13 +254,17 @@ class TeamPage extends Component {
                     </thead>
                     <tbody>
                       {gameResults.map(a => (
-                        <GameRow
-                          key={a.team}
-                          team={a.team}
-                          result={a.result}
-                          time={a.time}
-                          score={a.score}
-                        />
+                        <Link to={`/gamePage/${a.team}/${this.props.match.params.teamName}/${a.time}`}>
+
+                          <GameRow
+                            key={a.team}
+                            team={a.team}
+                            result={a.result}
+                            time={a.time}
+                            score={a.score}
+                          />
+
+                        </Link>
                       ))}
                     </tbody>
                   </table>
@@ -276,6 +281,7 @@ class TeamPage extends Component {
                           subtitle={a.subtitle}
                           content={a.content}
                           image={a.image}
+                          id={a.id}
 
                         />
                       </Segment>

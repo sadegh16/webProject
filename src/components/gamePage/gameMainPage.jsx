@@ -21,12 +21,13 @@ class GameMainPage extends Component {
     events: [
 
     ],
-    lastNews: []
+    lastNews: [],
+    likes: NaN
   };
 
   componentDidMount() {
     const { match: { params } } = this.props;
-    return (<Redirect to="http://localhost:8000/admin" />);
+
     axios.get(`http://localhost:8000/gamePage/gameNews/`, {
 
       params: {
@@ -52,7 +53,7 @@ class GameMainPage extends Component {
     })
       .then(response => {
         const newData = []
-        console.log(response.data)
+        console.log("******" + response.data)
         if (response.data.length > 0) {
           newData.push({ team1: response.data[0].team1, title: "name", team2: response.data[0].team2 })
           newData.push({ team1: response.data[0].team1_score, title: "score", team2: response.data[0].team2_score })
@@ -63,7 +64,7 @@ class GameMainPage extends Component {
             generalInfo: newData,
             media1: response.data[0].media1,
             media2: response.data[0].media2,
-
+            likes: response.data[0].likes
           })
         }
 
@@ -137,7 +138,8 @@ class GameMainPage extends Component {
   }
   likeClick = () => {
     const { match: { params } } = this.props;
-    axios.post(`http://localhost:8000/gamePage/addLike/`, {
+    console.log(params)
+    axios.post(`http://localhost:8000/gamePage/addFavorite/`, null, {
       params: {
         team1: params.team1,
         team2: params.team2,
@@ -176,7 +178,7 @@ class GameMainPage extends Component {
                 basic: true,
                 color: "red",
                 pointing: "left",
-                content: "2,048"
+                content: this.state.likes
               }}
             />
           </Grid.Column>

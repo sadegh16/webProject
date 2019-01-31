@@ -155,6 +155,7 @@ class PlayerMainPage extends Component {
                     subtitle={this.state.lastNews[this.state.lastCount].subtitle}
                     content={this.state.lastNews[this.state.lastCount].content}
                     image={this.state.lastNews[this.state.lastCount].image}
+                    id={this.state.lastNews[this.state.lastCount].id}
 
                   />
                 </Segment>

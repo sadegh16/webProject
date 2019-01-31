@@ -6,7 +6,8 @@ import axios from 'axios';
 
 class CommentManager extends Component {
   state = {
-    textComment: ""
+    textComment: "",
+    login: false,
   };
   ////
   onSubmit = (e, { value }) => {
@@ -16,9 +17,17 @@ class CommentManager extends Component {
   onchange = (e, { value }) => {
     this.state.textComment = value;
   };
+  isLogin = () => {
+    axios.get(`http://localhost:8000/isLogin`, { params: { key: localStorage.getItem('django_sport_key') } })
+      .then(resp => {
+        this.setState({ login: resp.data })
+      })
 
+  }
 
-
+  componentDidMount = () => {
+    this.isLogin()
+  }
   render() {
     return (
       <Comment.Group size={16}>
@@ -26,16 +35,18 @@ class CommentManager extends Component {
           <ResComment name={a.name} time={a.time} text={a.text} leaf={false} />
         ))}
         <Form size={14} onSubmit={this.onSubmit}>
-          <Form.TextArea
+          {this.state.login ? <React.Fragment> <Form.TextArea
             onChange={this.onchange}
             placeholder="Enter your comment"
-          />
-          <Button
-            content="Add Comment"
-            labelPosition="left"
-            icon="edit"
-            primary
-          />
+          /> <Button
+              content="Add Comment"
+              labelPosition="left"
+              icon="edit"
+              primary
+            />
+          </React.Fragment> : <div />}
+
+
         </Form>
       </Comment.Group>
     );

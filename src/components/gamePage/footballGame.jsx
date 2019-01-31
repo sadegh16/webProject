@@ -30,6 +30,7 @@ class FootBallGame extends Component {
                   subtitle={a.subtitle}
                   content={a.content}
                   image={a.image}
+                  id={a.id}
 
                 />
               </Segment>

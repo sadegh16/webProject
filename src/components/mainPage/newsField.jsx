@@ -22,6 +22,7 @@ class NewsField extends Component {
       { id: 4, title: "basket4", subtitle: "iran loose" }
     ],
     lastCount: 0,
+    login: false,
   };
   focus = () => {
     console.log(this.state.newsLimit)
@@ -47,10 +48,17 @@ class NewsField extends Component {
     console.log(value)
 
   }
+  isLogin = () => {
+    axios.get(`http://localhost:8000/isLogin`, { params: { key: localStorage.getItem('django_sport_key') } })
+      .then(resp => {
+        this.setState({ login: resp.data })
+      })
 
+  }
   componentDidMount() {
     console.log("***********")
     this.state.newsLimit = 10
+    this.isLogin()
     axios.get(`http://localhost:8000/mainPage/lastNews/`, {
       params: {
 
@@ -103,6 +111,7 @@ class NewsField extends Component {
                         subtitle={this.state.lastNews[this.state.lastCount].subtitle}
                         content={this.state.lastNews[this.state.lastCount].content}
                         image={this.state.lastNews[this.state.lastCount].image}
+                        id={this.state.lastNews[this.state.lastCount].id}
 
                       />
                     </Segment>
@@ -133,7 +142,7 @@ class NewsField extends Component {
                         subtitle={a.subtitle}
                         content={a.content}
                         image={a.image}
-
+                        id={a.id}
                       />
                     </Segment>
                   ))}
@@ -142,68 +151,52 @@ class NewsField extends Component {
             </div>
           </div>
 
-          <div className="field">
 
-            <div className="newsRow">
-              {/* 
-              <TransitionGroup>
-                <CSSTransition
-                  key={this.state.lastNews[this.state.lastCount].id}
-                  timeout={4500}
-                  classNames="move"
-                >
-                  <LastNew
-                    key={this.state.lastCount}
-                    title={this.state.lastNews[this.state.lastCount].title}
-                    subtitle={this.state.lastNews[this.state.lastCount].subtitle}
-                    content={this.state.lastNews[this.state.lastCount].content}
-                    image={this.state.lastNews[this.state.lastCount].image}
+          {this.state.login ? this.state.favorites.length > 0 ?
+            <div className="field">
+              <div className="newsRow">
+                <TransitionGroup>
+                  <CSSTransition
+                    key={this.state.favorites[this.state.favorCount].id}
+                    timeout={3000}
+                    classNames="slide"
+                  >
+                    <LastNew
+                      key={this.state.lastCount}
+                      title={this.state.lastNews[this.state.lastCount].title}
+                      subtitle={this.state.lastNews[this.state.lastCount].subtitle}
+                      content={this.state.lastNews[this.state.lastCount].content}
+                      image={this.state.lastNews[this.state.lastCount].image}
 
-                  />
+                    />
+                    />
                 </CSSTransition>
-              </TransitionGroup> */}
+                </TransitionGroup>
 
-              {this.state.favorites.length > 0 ?
-                <div>
-                  <TransitionGroup>
-                    <CSSTransition
-                      key={this.state.favorites[this.state.favorCount].id}
-                      timeout={3000}
-                      classNames="slide"
-                    >
-                      <LastNew
-                        key={this.state.lastCount}
-                        title={this.state.lastNews[this.state.lastCount].title}
-                        subtitle={this.state.lastNews[this.state.lastCount].subtitle}
-                        content={this.state.lastNews[this.state.lastCount].content}
-                        image={this.state.lastNews[this.state.lastCount].image}
+                <div className="paincontainer">
+                  <div className="pane">
+                    {this.state.favorites.map(a => (
+                      <Segment>
+                        <LastNew
+                          key={a.lastCount}
+                          title={a.title}
+                          subtitle={a.subtitle}
+                          content={a.content}
+                          image={a.image}
 
-                      />
-                      />
-                </CSSTransition>
-                  </TransitionGroup>
-
-                  <div className="paincontainer">
-                    <div className="pane">
-                      {this.state.favorites.map(a => (
-                        <Segment>
-                          <LastNew
-                            key={a.lastCount}
-                            title={a.title}
-                            subtitle={a.subtitle}
-                            content={a.content}
-                            image={a.image}
-
-                          />
-                        </Segment>
-                      ))}
-                    </div>
+                        />
+                      </Segment>
+                    ))}
                   </div>
                 </div>
-                : <h1 > NO Favorite</h1>}
-
+              </div>
             </div>
-          </div>
+            :
+            <div className="field">
+              <h1 > NO Favorite</h1>
+            </div>
+            : null}
+
 
         </dir>
 

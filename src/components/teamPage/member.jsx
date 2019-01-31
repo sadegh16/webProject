@@ -18,7 +18,7 @@ class Member extends Component {
           <div className="person-details">
             <div className="overly-bg" />
             <a href="">
-              <Link to="/playerPage">
+              <Link to={`/playerPage/${this.props.id}`}>
                 <h5 className="person-name">{this.state.name}</h5>
               </Link>
             </a>
