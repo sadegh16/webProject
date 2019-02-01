@@ -1,11 +1,14 @@
-import React, { Component } from "react";
+import React, {Component} from "react";
 import LeagueList from "./LeagueList";
 import SortedTable from "../sortedTable";
 import CupComp from "./CupComp";
 import faker from "faker";
+import Constants from "../../lib/utils/ConstantData";
 
-import { Grid, Search } from "semantic-ui-react";
+import {Grid, Search} from "semantic-ui-react";
 import SearchStandard from "../search";
+import axios from 'axios';
+
 const games = {
   b2: [
     {
@@ -99,68 +102,102 @@ const games = {
 const dataH = {
   b2: {
     array: [1, 2, 3, 4, 5, 6, 7, 8, 2, 3, 5, 7, 3, 5, 5],
-    title: "Cup",
-    inf: [
-      { from: 0, to: 4, title: "1/8" },
-      { from: 8, to: 10, title: "1/4" },
-      { from: 12, to: 13, title: "1/2" },
-      { from: 14, to: 15, title: "Winner" },
-      { from: 13, to: 14, title: "1/2" },
-      { from: 10, to: 12, title: "1/4" },
-      { from: 4, to: 8, title: "1/8" }
-    ]
+    title: "Cup"
   },
   b1: [
-    { Team: "w1", games: 2, Win: 1, Equal: 1, Lost: 1, Score: 1 },
-    { Team: "w2", games: 2, Win: 13, Equal: 1, Lost: 1, Score: 11 },
-    { Team: "w3", games: 2, Win: 1, Equal: 1, Lost: 1, Score: 12 },
-    { Team: "w4", games: 2, Win: 3, Equal: 1, Lost: 1, Score: 13 },
-    { Team: "w5", games: 2, Win: 1, Equal: 1, Lost: 1, Score: 14 },
-    { Team: "w6", games: 2, Win: 1, Equal: 1, Lost: 1, Score: 15 },
-    { Team: "w7", games: 2, Win: 1, Equal: 1, Lost: 1, Score: 16 },
-    { Team: "w8", games: 2, Win: 1, Equal: 1, Lost: 1, Score: 16 },
-    { Team: "w9", games: 2, Win: 1, Equal: 1, Lost: 1, Score: 12 }
+    {Team: "w1", games: 2, Win: 1, Equal: 1, Lost: 1, Score: 1},
+    {Team: "w2", games: 2, Win: 13, Equal: 1, Lost: 1, Score: 11},
+    {Team: "w3", games: 2, Win: 1, Equal: 1, Lost: 1, Score: 12},
+    {Team: "w4", games: 2, Win: 3, Equal: 1, Lost: 1, Score: 13},
+    {Team: "w5", games: 2, Win: 1, Equal: 1, Lost: 1, Score: 14},
+    {Team: "w6", games: 2, Win: 1, Equal: 1, Lost: 1, Score: 15},
+    {Team: "w7", games: 2, Win: 1, Equal: 1, Lost: 1, Score: 16},
+    {Team: "w8", games: 2, Win: 1, Equal: 1, Lost: 1, Score: 16},
+    {Team: "w9", games: 2, Win: 1, Equal: 1, Lost: 1, Score: 12}
   ],
   f1: [
-    { Team: "w1", games: 2, Win: 1, Equal: 1, Lost: 1, Score: 4 },
-    { Team: "w2", games: 2, Win: 1, Equal: 1, Lost: 1, Score: 1 },
-    { Team: "w3", games: 2, Win: 1, Equal: 1, Lost: 1, Score: 2 },
-    { Team: "w4", games: 2, Win: 1, Equal: 1, Lost: 1, Score: 3 },
-    { Team: "w5", games: 2, Win: 1, Equal: 1, Lost: 1, Score: 4 },
-    { Team: "w6", games: 2, Win: 1, Equal: 1, Lost: 1, Score: 5 },
-    { Team: "w7", games: 2, Win: 1, Equal: 1, Lost: 1, Score: 6 },
-    { Team: "w8", games: 2, Win: 1, Equal: 1, Lost: 1, Score: 6 },
-    { Team: "w9", games: 2, Win: 1, Equal: 1, Lost: 1, Score: 2 }
+    {Team: "w1", games: 2, Win: 1, Equal: 1, Lost: 1, Score: 4},
+    {Team: "w2", games: 2, Win: 1, Equal: 1, Lost: 1, Score: 1},
+    {Team: "w3", games: 2, Win: 1, Equal: 1, Lost: 1, Score: 2},
+    {Team: "w4", games: 2, Win: 1, Equal: 1, Lost: 1, Score: 3},
+    {Team: "w5", games: 2, Win: 1, Equal: 1, Lost: 1, Score: 4},
+    {Team: "w6", games: 2, Win: 1, Equal: 1, Lost: 1, Score: 5},
+    {Team: "w7", games: 2, Win: 1, Equal: 1, Lost: 1, Score: 6},
+    {Team: "w8", games: 2, Win: 1, Equal: 1, Lost: 1, Score: 6},
+    {Team: "w9", games: 2, Win: 1, Equal: 1, Lost: 1, Score: 2}
   ]
 };
-const sports = [
-  { name: "b1", current: true, type: "league", field: "basketball" },
-  { name: "b2", current: false, type: "cup", field: "basketball" },
-  { name: "b3", current: true, type: "league", field: "basketball" },
-  { name: "f1", current: true, type: "league", field: "football" },
-  { name: "f2", current: false, type: "cup", field: "football" },
-  { name: "f3", current: false, type: "league", field: "football" }
-];
+
 class League extends Component {
-  changeNotif = function(cmp, tp) {
-    this.setState({ competitionID: cmp, type: tp });
+  changeNotif = function (cmp, tp) {
+
+    axios.get(Constants.host + 'competition/game/' + cmp)
+      .then(response => {
+        const newData = Array.from(response.data.results, (data) => {
+          return {
+            "date": data.date,
+            "team1_score": data.team1_score,
+            "team2_score": data.team2_score,
+            "team1_point": data.team1_point,
+            "team2_point": data.team2_point,
+            "likes": data.likes,
+            "team1": data.team1,
+            "team2": data.team2,
+            "bestPlayer": data.bestPlayer,
+          }
+        })
+        games[cmp] = newData
+        this.setState({competitionID: cmp, type: tp});
+        this.state.callbackGame()
+      })
+
+
     if (this.state.type === "league") {
-      this.state.callbackLeague();
+      axios.get(Constants.host + 'competition/league/' + cmp)
+        .then(response => {
+          const newData = Array.from(response.data.results, (data) => {
+            return {
+              finished_game: data.finished_game,
+              win: data.win,
+              lose: data.lose,
+              equal: data.equal,
+              point: data.point,
+              gf: data.gf,
+              ga: data.ga,
+              league: data.league,
+              team: data.team
+            }
+          })
+          dataH[cmp] = newData
+          this.setState({competitionID: cmp, type: tp});
+          this.state.callbackLeague();
+        })
     } else {
-      this.state.callbackCup();
+      axios.get(Constants.host + 'competition/cup/' + cmp)
+        .then(response => {
+          const newData = Array.from(response.data.results, (data) => {
+            return {
+              title: data.name + '  ' + data.type,
+              array: JSON.parse(data.array),
+              image: data.image,
+            }
+          })
+          dataH[cmp] = newData
+          this.setState({competitionID: cmp, type: tp});
+          this.state.callbackCup();
+        })
     }
   };
   gameCallbackSetter = func => (this.state.callbackGame = func);
-  compSetCallbackCup = function(func) {
+  compSetCallbackCup = function (func) {
     this.state.callbackCup = func;
   };
-  compSetCallbackLeague = function(func) {
+  compSetCallbackLeague = function (func) {
     this.state.callbackLeague = func;
   };
   state = {
     type: "cup",
     competitionID: "b2",
-    data: dataH,
     gameCallbackSetter: this.gameCallbackSetter.bind(this),
     changeNotif: this.changeNotif.bind(this),
     compSetCallbackLeague: this.compSetCallbackLeague.bind(this),
@@ -169,25 +206,26 @@ class League extends Component {
 
   render() {
     return (
-      <div style={{ backgroundColor: "#b8c3d6" }}>
+      <div style={{backgroundColor: "#b8c3d6"}}>
         <Grid columns={2} stackable centered>
           <Grid.Row stretched width={10}>
-            <LeagueList sports={sports} notif={this.state.changeNotif} />
+            <LeagueList
+              passFunc={this.state.compSetCallCompetition}
+              notif={this.state.changeNotif}/>
           </Grid.Row>
           <Grid.Column stretched width={10}>
             {this.state.type === "league" ? (
               <SortedTable
                 passFunc={this.state.compSetCallbackLeague}
-                data={this.state.data[this.state.competitionID]}
+                data={dataH[this.state.competitionID]}
               />
             ) : (
               <CupComp
                 passFunc={this.state.compSetCallbackCup}
-                data={this.state.data[this.state.competitionID]}
+                data={dataH[this.state.competitionID]}
               />
             )}
             <SortedTable
-              {...console.log(games[this.state.competitionID])}
               data={games[this.state.competitionID]}
               passFunc={this.state.gameCallbackSetter}
             />
@@ -197,4 +235,5 @@ class League extends Component {
     );
   }
 }
+
 export default League;

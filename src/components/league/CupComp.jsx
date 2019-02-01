@@ -13,6 +13,7 @@ import {
   MenuItem,
   Transition
 } from "semantic-ui-react";
+import Constants from "../../lib/utils/ConstantData";
 const teamData = {
   "1": faker.internet.avatar(),
   "2": faker.internet.avatar(),
@@ -29,13 +30,13 @@ class CupComp extends Component {
     this.setState({
       title: this.props.data["title"],
       array: this.props.data["array"],
-      sliceInf: this.props.data["inf"]
+      sliceInf: Constants.inf
     });
   };
   state = {
     title: this.props.data["title"],
     array: this.props.data["array"],
-    sliceInf: this.props.data["inf"],
+    sliceInf: Constants.inf,
     handleUpdate: this.handleUpdate.bind(this)
   };
   componentDidMount() {
@@ -73,7 +74,6 @@ class CupComp extends Component {
                     <Image
                       src={teamData[b]}
                       size="medium"
-                      onHover={console.log("salam")}
                     />
                   </Link>
                 </Transition>

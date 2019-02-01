@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, {Component} from "react";
 import {
   Menu,
   Button,
@@ -8,16 +8,27 @@ import {
   Segment
 } from "semantic-ui-react";
 import SearchStandard from "../search";
-var groupBy = function(xs, key) {
-  return xs.reduce(function(rv, x) {
+import axios from "axios";
+import Constants from "../../lib/utils/ConstantData";
+
+var groupBy = function (xs, key) {
+  return xs.reduce(function (rv, x) {
     (rv[x[key]] = rv[x[key]] || []).push(x);
     return rv;
   }, {});
 };
+const sports = [
+  {name: "b1", current: true, type: "league", field: "basketball"},
+  {name: "b2", current: false, type: "cup", field: "basketball"},
+  {name: "b3", current: true, type: "league", field: "basketball"},
+  {name: "f1", current: true, type: "league", field: "football"},
+  {name: "f2", current: false, type: "cup", field: "football"},
+  {name: "f3", current: false, type: "league", field: "football"}
+];
 
 export default class LeagueList extends Component {
-  createButtons = function(val) {
-    const { activeField, notif, comptitions } = this.state;
+  createButtons = function (val) {
+    const {activeField, notif, comptitions} = this.state;
     return comptitions.filter(
       a => a.field === activeField && a.current === val
     );
@@ -25,16 +36,41 @@ export default class LeagueList extends Component {
   state = {
     createButtons: this.createButtons.bind(this),
     notif: this.props.notif,
-    sportFields: Object.keys(groupBy(this.props.sports, "field")),
-    comptitions: this.props.sports,
-    activeField: "basketball"
+    sportFields: Object.keys(groupBy(sports, "field")),
+    comptitions: sports,
+    activeField: "basketball",
   };
 
-  handleItemClick = (e, { name }) => {
-    this.setState({ activeField: name });
+  componentDidMount() {
+    axios.get(Constants.host + 'competition/')
+      .then(response => {
+          const newData = Array.from(response.data.results, (data) => {
+            return {
+              id: data.id,
+              name: data.name,
+              current: data.current,
+              type: data.type,
+              field: data.field,
+              image: data.image
+            }
+          })
+          this.setState({
+            sportFields: Object.keys(groupBy(newData, "field")),
+            comptitions: newData,
+          })
+        }
+      )
+
+
+  }
+
+
+  handleItemClick = (e, {name}) => {
+    this.setState({activeField: name});
   };
+
   render() {
-    const { activeField, notif, createButtons, sportFields } = this.state;
+    const {activeField, notif, createButtons, sportFields} = this.state;
     return (
       <Grid>
         <GridRow stretched>
@@ -50,7 +86,7 @@ export default class LeagueList extends Component {
               <Menu.Item>
                 <SearchStandard
                   resultClick={res => notif(res.title, res.price.toLowerCase())}
-                  input={{ icon: "search", iconPosition: "right" }}
+                  input={{icon: "search", iconPosition: "right"}}
                 />
               </Menu.Item>
             </Menu.Menu>
@@ -65,7 +101,7 @@ export default class LeagueList extends Component {
               <Button
                 name={a.name}
                 tp={a.type}
-                onClick={(e, { name, tp }) => notif(name, tp)}
+                onClick={(e, {name, tp}) => notif(name, tp)}
               >
                 {a.name}
               </Button>
@@ -81,7 +117,7 @@ export default class LeagueList extends Component {
               <Button
                 name={a.name}
                 tp={a.type}
-                onClick={(e, { name, tp }) => notif(name, tp)}
+                onClick={(e, {name, tp}) => notif(name, tp)}
               >
                 {a.name}
               </Button>

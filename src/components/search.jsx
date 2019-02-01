@@ -1,9 +1,11 @@
 import _ from "lodash";
 import faker from "faker";
-import React, { Component } from "react";
-import { Search, Grid, Header, Segment } from "semantic-ui-react";
+import React, {Component} from "react";
+import {Search, Grid, Header, Segment} from "semantic-ui-react";
+import axios from "axios";
+import Constants from "../lib/utils/ConstantData";
 
-const sourceh = [
+var sourceh = [
   {
     title: "b1",
     description: faker.company.catchPhrase(),
@@ -44,25 +46,41 @@ const sourceh = [
 
 export default class SearchStandard extends Component {
   state = {
-    source: sourceh,
     resultClick: this.props.resultClick,
     value: sourceh[0]
   };
+
   componentWillMount() {
+    axios.get(Constants.host + 'competition/')
+      .then(response => {
+          const newData = Array.from(response.data.results, (data) => {
+            return {
+              id: data.id,
+              name: data.name,
+              current: data.current,
+              type: data.type,
+              field: data.field,
+              image: data.image
+            }
+          })
+          sourceh.push(newData)
+        }
+      )
+
     this.resetComponent();
   }
 
   resetComponent = () =>
-    this.setState({ isLoading: false, results: [], value: "" });
+    this.setState({isLoading: false, results: [], value: ""});
 
-  handleResultSelect = (e, { result }) => {
+  handleResultSelect = (e, {result}) => {
     if (this.state.resultClick !== undefined) {
       this.state.resultClick(result);
     }
   };
 
-  handleSearchChange = (e, { value }) => {
-    this.setState({ isLoading: true, value });
+  handleSearchChange = (e, {value}) => {
+    this.setState({isLoading: true, value});
 
     setTimeout(() => {
       if (this.state.value.length < 1) return this.resetComponent();
@@ -72,13 +90,13 @@ export default class SearchStandard extends Component {
 
       this.setState({
         isLoading: false,
-        results: _.filter(this.state.source, isMatch)
+        results: _.filter(sourceh, isMatch)
       });
     }, 300);
   };
 
   render() {
-    const { isLoading, value, results } = this.state;
+    const {isLoading, value, results} = this.state;
     return (
       <Grid>
         <Grid.Column width={6}>
