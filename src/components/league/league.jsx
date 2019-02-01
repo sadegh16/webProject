@@ -173,12 +173,11 @@ class League extends Component {
           this.state.callbackLeague();
         })
     } else {
-      axios.get(Constants.host + 'competition/cup/' + cmp)
+      axios.get(Constants.host + 'competition/' + cmp)
         .then(response => {
           const newData = Array.from(response.data.results, (data) => {
             return {
               title: data.name + '  ' + data.type,
-              array: JSON.parse(data.array),
               image: data.image,
             }
           })
@@ -186,6 +185,17 @@ class League extends Component {
           this.setState({competitionID: cmp, type: tp});
           this.state.callbackCup();
         })
+      var array=[32]
+      axios.get(Constants.host + 'competition/cup/' + cmp)
+        .then(response => {
+          const newData = Array.from(response.data.results, (data) => {
+            return
+          })
+          dataH[cmp][array] = newData
+          this.setState({competitionID: cmp, type: tp});
+          this.state.callbackCup();
+        })
+
     }
   };
   gameCallbackSetter = func => (this.state.callbackGame = func);
