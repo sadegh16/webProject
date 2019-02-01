@@ -246,6 +246,8 @@ class TeamPage extends Component {
                     <caption>Statement Summary</caption>
                     <thead>
                       <tr>
+                        <th scope="col">link</th>
+
                         <th scope="col">Team</th>
                         <th scope="col">Result</th>
                         <th scope="col">time</th>
@@ -254,17 +256,17 @@ class TeamPage extends Component {
                     </thead>
                     <tbody>
                       {gameResults.map(a => (
-                        <Link to={`/gamePage/${a.team}/${this.props.match.params.teamName}/${a.time}`}>
 
-                          <GameRow
-                            key={a.team}
-                            team={a.team}
-                            result={a.result}
-                            time={a.time}
-                            score={a.score}
-                          />
 
-                        </Link>
+                        <GameRow
+                          key={a.team}
+                          team={a.team}
+                          result={a.result}
+                          time={a.time}
+                          score={a.score}
+                          team1={this.props.match.params.teamName}
+                        />
+
                       ))}
                     </tbody>
                   </table>
